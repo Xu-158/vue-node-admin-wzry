@@ -26,6 +26,34 @@ const routes = [
         path:'/categories/edit/:id',
         props:true,
         component:()=>import('@/views/CategoryCreate')
+      },
+
+      {
+        path:'/items/create',
+        component:()=>import('@/views/ItemCreate')
+      },
+      {
+        path:'/items/list',
+        component:()=>import('@/views/ItemList')
+      },
+      {
+        path:'/items/edit/:id',
+        props:true,
+        component:()=>import('@/views/ItemCreate')
+      },
+
+      {
+        path:'/heroes/create',
+        component:()=>import('@/views/HeroCreate')
+      },
+      {
+        path:'/heroes/list',
+        component:()=>import('@/views/HeroList')
+      },
+      {
+        path:'/heroes/edit/:id',
+        props:true,
+        component:()=>import('@/views/HeroCreate')
       }
     ]
   }
