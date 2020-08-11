@@ -68,6 +68,20 @@ const routes = [
         path:'/articles/edit/:id',
         props:true,
         component:()=>import('@/views/ArticleCreate')
+      },
+
+      {
+        path:'/ads/create',
+        component:()=>import('@/views/AdCreate')
+      },
+      {
+        path:'/ads/list',
+        component:()=>import('@/views/AdList')
+      },
+      {
+        path:'/ads/edit/:id',
+        props:true,
+        component:()=>import('@/views/AdCreate')
       }
     ]
   }

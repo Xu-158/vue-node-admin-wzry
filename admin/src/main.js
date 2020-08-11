@@ -4,6 +4,8 @@ import router from './router/index'
 import ElementUI from 'element-ui';
 import http from './http'
 
+import './assets/css/style.css'
+
 Vue.config.productionTip = false
 
 Vue.use(ElementUI);

@@ -220,32 +220,9 @@ export default {
 };
 </script>
 
-<style>
+<style scoped>
 .title {
   text-align: center;
-}
-.avatar-uploader .el-upload {
-  border: 1px dashed #575757;
-  border-radius: 6px;
-  cursor: pointer;
-  position: relative;
-  overflow: hidden;
-}
-.avatar-uploader .el-upload:hover {
-  border-color: #409eff;
-}
-.avatar-uploader-icon {
-  font-size: 30px;
-  color: #050505;
-  width: 4rem;
-  height: 4rem;
-  line-height: 4rem;
-  text-align: center;
-}
-.avatar {
-  width: 4rem;
-  height: 4rem;
-  display: block;
 }
 .save-button {
   margin-top: 1rem;
