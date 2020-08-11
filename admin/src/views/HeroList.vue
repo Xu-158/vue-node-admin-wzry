@@ -3,6 +3,7 @@
     <el-table :data="tableData">
       <el-table-column prop="_id" label="id" width="400"></el-table-column>
       <el-table-column prop="name" label="英雄名称"></el-table-column>
+      <el-table-column prop="title" label="英雄称号"></el-table-column>
       <el-table-column prop="avatar" label="头像">
         <template slot-scope="scope">
           <img :src="scope.row.avatar" alt="" height="50px">
