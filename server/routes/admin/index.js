@@ -1,32 +1,22 @@
 module.exports = app => {
   const express = require('express')
   const router = express.Router({
-    mergeParams:true
+    mergeParams: true
   })
 
   router.post('/', async (req, res) => {
-    const name = req.body.name
-    if (name != '' && name != null) {
-      const model = await req.Model.create(req.body)
-      res.send(model)
-    } else {
-      res.send(null)
-    }
+    const model = await req.Model.create(req.body)
+    res.send(model)
   })
 
   router.put('/:id', async (req, res) => {
-    const name = req.body.name
-    if (name != '' && name != null) {
-      const model = await req.Model.findByIdAndUpdate(req.params.id, req.body)
-      res.send(model)
-    } else {
-      res.send(null)
-    }
+    const model = await req.Model.findByIdAndUpdate(req.params.id, req.body)
+    res.send(model)
   })
 
   router.get('/', async (req, res) => {
     const queryOption = {}
-    if(req.Model.modelName === 'Category'){
+    if (req.Model.modelName === 'Category') {
       queryOption.populate = 'parent'
     }
     const list = await req.Model.find().setOptions(queryOption).limit(10)
@@ -50,8 +40,8 @@ module.exports = app => {
   }, router)
 
   const multer = require('multer')
-  const upload = multer({dest:__dirname + '/../../uploads'})
-  app.post('/admin/api/upload',upload.single('file'),async(req,res)=>{
+  const upload = multer({ dest: __dirname + '/../../uploads' })
+  app.post('/admin/api/upload', upload.single('file'), async (req, res) => {
     const file = req.file
     file.url = `http://localhost:3000/uploads/${file.filename}`
     res.send(file)
