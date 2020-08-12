@@ -2,7 +2,7 @@
   <div>
     <h2 class="title">{{id?'编辑':'新建'}}广告位</h2>
     <el-form label-width="80px" @submit.native.prevent="save">
-      <el-form-item label="名称">
+      <el-form-item label="广告位名称" label-width="120px">
         <el-input v-model="model.name"></el-input>
       </el-form-item>
 

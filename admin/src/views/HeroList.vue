@@ -1,5 +1,6 @@
 <template>
   <div>
+    <h2>英雄列表</h2>
     <el-table :data="tableData">
       <el-table-column prop="_id" label="id" width="400"></el-table-column>
       <el-table-column prop="name" label="英雄名称"></el-table-column>

@@ -10,78 +10,97 @@ const routes = [
     redirect: '/admin'
   },
   {
+    path: '/login',
+    name: 'login',
+    component: () => import('@/views/Login.vue')
+  },
+  {
     path: '/admin',
     name: 'admin',
     component: () => import('@/views/Admin.vue'),
-    children:[
+    children: [
       {
-        path:'/categories/create',
-        component:()=>import('@/views/CategoryCreate')
+        path: '/categories/create',
+        component: () => import('@/views/CategoryCreate')
       },
       {
-        path:'/categories/list',
-        component:()=>import('@/views/CategoryList')
+        path: '/categories/list',
+        component: () => import('@/views/CategoryList')
       },
       {
-        path:'/categories/edit/:id',
-        props:true,
-        component:()=>import('@/views/CategoryCreate')
-      },
-
-      {
-        path:'/items/create',
-        component:()=>import('@/views/ItemCreate')
-      },
-      {
-        path:'/items/list',
-        component:()=>import('@/views/ItemList')
-      },
-      {
-        path:'/items/edit/:id',
-        props:true,
-        component:()=>import('@/views/ItemCreate')
+        path: '/categories/edit/:id',
+        props: true,
+        component: () => import('@/views/CategoryCreate')
       },
 
       {
-        path:'/heroes/create',
-        component:()=>import('@/views/HeroCreate')
+        path: '/items/create',
+        component: () => import('@/views/ItemCreate')
       },
       {
-        path:'/heroes/list',
-        component:()=>import('@/views/HeroList')
+        path: '/items/list',
+        component: () => import('@/views/ItemList')
       },
       {
-        path:'/heroes/edit/:id',
-        props:true,
-        component:()=>import('@/views/HeroCreate')
-      },
-
-      {
-        path:'/articles/create',
-        component:()=>import('@/views/ArticleCreate')
-      },
-      {
-        path:'/articles/list',
-        component:()=>import('@/views/ArticleList')
-      },
-      {
-        path:'/articles/edit/:id',
-        props:true,
-        component:()=>import('@/views/ArticleCreate')
+        path: '/items/edit/:id',
+        props: true,
+        component: () => import('@/views/ItemCreate')
       },
 
       {
-        path:'/ads/create',
-        component:()=>import('@/views/AdCreate')
+        path: '/heroes/create',
+        component: () => import('@/views/HeroCreate')
       },
       {
-        path:'/ads/list',
-        component:()=>import('@/views/AdList')
+        path: '/heroes/list',
+        component: () => import('@/views/HeroList')
       },
       {
-        path:'/ads/edit/:id',
-        props:true,
-        component:()=>import('@/views/AdCreate')
+        path: '/heroes/edit/:id',
+        props: true,
+        component: () => import('@/views/HeroCreate')
+      },
+
+      {
+        path: '/articles/create',
+        component: () => import('@/views/ArticleCreate')
+      },
+      {
+        path: '/articles/list',
+        component: () => import('@/views/ArticleList')
+      },
+      {
+        path: '/articles/edit/:id',
+        props: true,
+        component: () => import('@/views/ArticleCreate')
+      },
+
+      {
+        path: '/ads/create',
+        component: () => import('@/views/AdCreate')
+      },
+      {
+        path: '/ads/list',
+        component: () => import('@/views/AdList')
+      },
+      {
+        path: '/ads/edit/:id',
+        props: true,
+        component: () => import('@/views/AdCreate')
+      },
+
+      {
+        path: '/admin_users/create',
+        component: () => import('@/views/AdminUserCreate')
+      },
+      {
+        path: '/admin_users/list',
+        component: () => import('@/views/AdminUserList')
+      },
+      {
+        path: '/admin_users/edit/:id',
+        props: true,
+        component: () => import('@/views/AdminUserCreate')
       }
     ]
   }
