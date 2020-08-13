@@ -27,7 +27,8 @@ export default {
     async login() {
       const res = await this.$http.post("/login", this.model);
       console.log(res.data);
-      sessionStorage.token = res.data.token;
+      sessionStorage.username = res.data.username
+      sessionStorage.token = res.data.token
       this.$router.push("/");
       this.$message({
         type: "success",

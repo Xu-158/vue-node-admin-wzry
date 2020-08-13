@@ -64,7 +64,7 @@
             <el-dropdown-item>删除</el-dropdown-item>
           </el-dropdown-menu>
         </el-dropdown>
-        <span>王小虎</span>
+        <span>{{username}}</span>
       </el-header>
 
       <el-main>
@@ -78,8 +78,12 @@
 export default {
   data(){
     return{
-      list:['3']
+      list:['3'],
+      username:'xu '
     }
+  },
+  beforeMount(){
+    this.username = sessionStorage.username
   }
 };
 </script>
