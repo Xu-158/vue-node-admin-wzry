@@ -6,13 +6,14 @@ Vue.use(VueRouter)
 const routes = [
   {
     path: '/',
-    name: 'home',
+    name: 'redirect',
     redirect: '/admin'
   },
   {
     path: '/login',
     name: 'login',
-    component: () => import('@/views/Login.vue')
+    component: () => import('@/views/Login.vue'),
+    meta:{isPublic:true}
   },
   {
     path: '/admin',
@@ -108,6 +109,13 @@ const routes = [
 
 const router = new VueRouter({
   routes
+})
+
+router.beforeEach((to,from,next)=>{
+  if(!to.meta.isPublic && !sessionStorage.token){
+    return next('/login')
+  }
+  next()
 })
 
 export default router
