@@ -7,15 +7,16 @@
       </el-form-item>
 
       <el-form-item label="图标">
-      <el-upload
-        class="avatar-uploader"
-        :action="$http.defaults.baseURL + '/upload'"
-        :show-file-list="false"
-        :on-success="handleAvatarSuccess"
-      >
-        <img v-if="model.icon" :src="model.icon" class="avatar" />
-        <i v-else class="el-icon-plus avatar-uploader-icon"></i>
-      </el-upload>
+        <el-upload
+          class="avatar-uploader"
+          :headers="getAuthHeaders()"
+          :action="uploadUrl"
+          :show-file-list="false"
+          :on-success="handleAvatarSuccess"
+        >
+          <img v-if="model.icon" :src="model.icon" class="avatar" />
+          <i v-else class="el-icon-plus avatar-uploader-icon"></i>
+        </el-upload>
       </el-form-item>
 
       <el-form-item>
@@ -32,7 +33,7 @@ export default {
   },
   data() {
     return {
-      model: {},
+      model: {}
     };
   },
   methods: {
@@ -65,8 +66,8 @@ export default {
     },
 
     handleAvatarSuccess(res) {
-      this.$set(this.model,'icon',res.url)
-    },
+      this.$set(this.model, "icon", res.url);
+    }
   },
   created() {
     this.id && this.getInfo(this.id);

@@ -13,6 +13,21 @@ Vue.use(ElementUI);
 Vue.prototype.$http = http
 Vue.prototype.$logs = window.console.log
 
+Vue.mixin({
+  computed:{
+    uploadUrl(){
+      return this.$http.defaults.baseURL + '/upload'
+    }
+  },
+  methods: {
+    getAuthHeaders() {
+      return {
+        Authorization: `Bearer ${sessionStorage.token || ''}`
+      }
+    }
+  }
+})
+
 new Vue({
   render: h => h(App),
   router,
