@@ -11,6 +11,7 @@ Vue.config.productionTip = false
 Vue.use(ElementUI);
 
 Vue.prototype.$http = http
+Vue.prototype.$logs = window.console.log
 
 new Vue({
   render: h => h(App),
