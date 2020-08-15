@@ -67,6 +67,10 @@ a {
   flex-grow: 1;
 }
 
+.flex-wrap{
+  flex-wrap: wrap;
+}
+
 @each $typeKey, $type in $spacing-types {
   // m-(0-5)
   @each $sizeKey, $size in $spacing-sizes {
@@ -109,4 +113,21 @@ a {
 }
 .h-100{
   height: 100%;
+}
+
+// sprite(雪碧图)
+.sprite{
+  background: url(../images/index.png) no-repeat 0 0;
+  background-size: 28.8462rem;
+  display: inline-block;
+  &.sprite-news{
+    width: 1.7692rem;
+    height: 1.5385rem;
+    background-position: 63.546% 15.517%;
+  }
+  &.sprite-arrow{
+    width: 0.7692rem;
+    height: 0.7692rem;
+    background-position: 38.577% 52.076%;
+  }
 }
