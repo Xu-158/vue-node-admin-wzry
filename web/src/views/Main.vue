@@ -1,7 +1,7 @@
 <template>
   <div>
     <div class="topbar bg-black py-2 px-3 d-flex ai-center">
-      <img src="../assets/logo.png" alt height="30" />
+      <img src="../assets/images/logo.png" alt height="30" />
       <div class="pl-2 flex-1">
         <div class="text-white fs-md">王者荣耀</div>
         <div class="text-grey-1 fs-xs">团队成就更多</div>
@@ -34,6 +34,7 @@ export default {};
 .nav {
   .nav-item {
     border-bottom: 3px solid transparent;
+    padding-bottom: 0.2rem;
     &.active {
       border-bottom: 3px solid white;
     }

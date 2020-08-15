@@ -1,3 +1,5 @@
+@import './variables';
+
 * {
   box-sizing: border-box;
   outline: none;
@@ -12,28 +14,18 @@ body {
   background: #f1f1f1;
   -webkit-font-smoothing: antialiased;
 }
+
+// color
 a {
   color: #999;
 }
 
-$color: (
-  "primary": #db9e3f,
-  "white": #fff,
-  "light": #f9f9f9,
-  "grey": #999,
-  "grey-1": #666,
-  "dark-1": #343440,
-  "dark": #222,
-  "black": #000,
-);
-
 @each $var in (left, center, right) {
   .text-#{$var} {
-    text-align: $var;
+    text-align: $var !important;
   }
 }
-
-@each $colorKey, $color in $color {
+@each $colorKey, $color in $colors {
   .text-#{$colorKey} {
     color: $color;
   }
@@ -43,42 +35,19 @@ $color: (
   }
 }
 
-$base-font-size: 1rem;
-$font-sizes: (
-  xxs: 0.6154,
-  // 8px
-    xs: 0.7692,
-  //10px
-    sm: 0.9231,
-  //12px
-    md: 1,
-  //13px
-    lg: 1.0769,
-  //14px
-    xl: 1.2308 //16px,,,
-);
-
 @each $sizeKey, $size in $font-sizes {
   .fs-#{$sizeKey} {
     font-size: $size * $base-font-size;
   }
 }
 
+// flex
 .d-flex {
   display: flex;
 }
-
 .flex-column {
   flex-direction: column;
 }
-
-$flex-jc: (
-  start: flex-start,
-  end: flex-end,
-  center: center,
-  between: space-between,
-  around: space-around,
-);
 
 @each $key, $value in $flex-jc {
   .jc-#{$key} {
@@ -86,48 +55,17 @@ $flex-jc: (
   }
 }
 
-$flex-ai: (
-  start: flex-start,
-  end: flex-end,
-  center: center,
-  stretch: stretch,
-);
-
 @each $key, $value in $flex-ai {
   .ai-#{$key} {
     align-items: $value;
   }
 }
-
 .flex-1 {
   flex: 1;
 }
-
 .flex-grow-1 {
   flex-grow: 1;
 }
-
-// spacing
-// .mt-1 margin-top:  .pb-2 padding-bottom
-$spacing-types: (
-  m: margin,
-  p: padding,
-);
-$spacing-directions: (
-  t: top,
-  r: right,
-  b: bottom,
-  l: left,
-);
-$spacing-base-size: 1rem;
-$spacing-sizes: (
-  0: 0,
-  1: 0.25,
-  2: 0.5,
-  3: 1,
-  4: 1.5,
-  5: 3,
-);
 
 @each $typeKey, $type in $spacing-types {
   // m-(0-5)
@@ -157,9 +95,18 @@ $spacing-sizes: (
   }
 }
 
+//
 .btn {
   border: none;
   border-radius: 0.1538rem;
   font-size: map-get($font-sizes, "sm") * $base-font-size;
   padding: 0.3rem 0.6rem ;
+}
+
+// width,height
+.w-100{
+  width: 100%;
+}
+.h-100{
+  height: 100%;
 }
