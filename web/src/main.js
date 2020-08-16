@@ -9,10 +9,13 @@ import router from './router'
 Vue.config.productionTip = false
 
 import VueAwesomeSwiper from 'vue-awesome-swiper'
+import Card from '@/components/Card.vue'
  
 import 'swiper/css/swiper.css'
  
 Vue.use(VueAwesomeSwiper)
+
+Vue.component('m-card',Card)
 
 
 new Vue({

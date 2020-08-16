@@ -1,4 +1,4 @@
-@import './variables';
+@import "./variables";
 
 * {
   box-sizing: border-box;
@@ -67,7 +67,7 @@ a {
   flex-grow: 1;
 }
 
-.flex-wrap{
+.flex-wrap {
   flex-wrap: wrap;
 }
 
@@ -104,30 +104,57 @@ a {
   border: none;
   border-radius: 0.1538rem;
   font-size: map-get($font-sizes, "sm") * $base-font-size;
-  padding: 0.3rem 0.6rem ;
+  padding: 0.3rem 0.6rem;
+}
+
+.nav {
+  display: flex;
+  .nav-item {
+    border-bottom: 3px solid transparent;
+    padding-bottom: 0.2rem;
+    &.active {
+      color: map-get($colors, "primary");
+      border-bottom-color: map-get($colors, "primary");
+      border-radius: 0.1538rem;
+    }
+  }
+  &.nav-inverse {
+    .nav-item {
+      color: map-get($colors, "white");
+      &.active {
+        border-bottom-color: map-get($colors, "white");
+        border-radius: 0.1538rem;
+      }
+    }
+  }
 }
 
 // width,height
-.w-100{
+.w-100 {
   width: 100%;
 }
-.h-100{
+.h-100 {
   height: 100%;
 }
 
 // sprite(雪碧图)
-.sprite{
+.sprite {
   background: url(../images/index.png) no-repeat 0 0;
   background-size: 28.8462rem;
   display: inline-block;
-  &.sprite-news{
+  &.sprite-news {
     width: 1.7692rem;
     height: 1.5385rem;
     background-position: 63.546% 15.517%;
   }
-  &.sprite-arrow{
+  &.sprite-arrow {
     width: 0.7692rem;
     height: 0.7692rem;
     background-position: 38.577% 52.076%;
+  }
+  &.sprite-ellipsis {
+    width: 1.3846rem;
+    height: 0.2308rem;
+    background-position: 47.619% 56.305%;
   }
 }

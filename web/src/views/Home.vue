@@ -22,6 +22,50 @@
       </div>
     </div>
     <!--  -->
+
+    <m-card title="新闻资讯" iconClass="cc-menu-circle">
+      <div>
+        <div class="nav jc-between pt-3">
+          <div class="nav-item active">
+            <div>热门</div>
+          </div>
+          <div class="nav-item">
+            <div>新闻</div>
+          </div>
+          <div class="nav-item">
+            <div>公告</div>
+          </div>
+          <div class="nav-item">
+            <div>活动</div>
+          </div>
+          <div class="nav-item">
+            <div>赛事</div>
+          </div>
+        </div>
+        <div class="pt-3">
+          <swiper>
+            <swiper-slide v-for="n in 5" :key="n">
+              <div class="pb-2" v-for="n in 5" :key="n">
+                <span>[新闻]</span>
+                <span>|</span>
+                <span>“游戏家中国行·王者零距离”活动重启说明</span>
+                <span>&nbsp;08/14</span>
+              </div>
+            </swiper-slide>
+          </swiper>
+        </div>
+      </div>
+    </m-card>
+
+    <m-card title="英雄列表" iconClass="card-hero">
+
+    </m-card>
+
+    <m-card title="精彩视频" iconClass="video">
+
+    </m-card>
+
+
     <i class="iconfont fs-lg">&#xe672;</i>
     <i class="iconfont fs-lg">&#xe615;</i>
     <i class="iconfont fs-lg">&#xe61f;</i>

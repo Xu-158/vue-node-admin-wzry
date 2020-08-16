@@ -9,7 +9,7 @@
       <button class="btn bg-primary">立即下载</button>
     </div>
     <div class="bg-primary py-3">
-      <div class="nav d-flex jc-around text-white">
+      <div class="nav nav-inverse jc-around">
         <div class="nav-item active">
           <router-link class="nav-link" to="/" tag="div">首页</router-link>
         </div>
@@ -31,13 +31,5 @@ export default {};
 </script>
 
 <style lang="scss">
-.nav {
-  .nav-item {
-    border-bottom: 3px solid transparent;
-    padding-bottom: 0.2rem;
-    &.active {
-      border-bottom: 3px solid white;
-    }
-  }
-}
+
 </style>
