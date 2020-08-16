@@ -3,7 +3,7 @@ module.exports = app => {
   const jwt = require('jsonwebtoken')
   const assert = require('http-assert')
 
-  const AdminUser = require('../../modules/AdminUser')
+  const AdminUser = require('../../models/AdminUser')
 
   const authMiddleWare = require('../../middleWare/auth')
   const resourceMiddleWare = require('../../middleWare/resource')
@@ -27,7 +27,7 @@ module.exports = app => {
     if (req.Model.modelName === 'Category') {
       queryOption.populate = 'parent'
     }
-    const list = await req.Model.find().setOptions(queryOption).limit(10)
+    const list = await req.Model.find().setOptions(queryOption).limit(100)
     res.send(list)
   })
 

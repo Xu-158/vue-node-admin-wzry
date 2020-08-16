@@ -6,4 +6,6 @@ module.exports = app =>{
     useCreateIndex:true,
     useUnifiedTopology:true
   })
+
+  require('require-all')(__dirname + '/../models')
 }

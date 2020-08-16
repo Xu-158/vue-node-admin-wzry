@@ -31,5 +31,9 @@ export default {};
 </script>
 
 <style lang="scss">
-
+.topbar{
+  position: sticky;
+  top:0px;
+  z-index: 999;
+}
 </style>
