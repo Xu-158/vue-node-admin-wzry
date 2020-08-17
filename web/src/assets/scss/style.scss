@@ -158,3 +158,10 @@ a {
     background-position: 47.619% 56.305%;
   }
 }
+
+.text-ellipsis{
+  display: inline-block;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}

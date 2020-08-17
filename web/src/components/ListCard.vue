@@ -7,13 +7,13 @@
           v-for="(item,index) in categories"
           :class="{active:currentIndex == index}"
           :key="index"
-          @click="currentIndex = index"
+          @click="$refs.list.$swiper.slideTo(index)"
         >
           <div>{{item.name}}</div>
         </div>
       </div>
       <div class="pt-3">
-        <swiper>
+        <swiper ref="list" @slide-change="()=> currentIndex = $refs.list.$swiper.realIndex">
           <swiper-slide v-for="(category,index) in categories" :key="index">
             <slot name="items" :category="category"></slot>
           </swiper-slide>
