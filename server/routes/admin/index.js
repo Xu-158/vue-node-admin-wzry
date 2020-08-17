@@ -24,8 +24,15 @@ module.exports = app => {
 
   router.get('/', async (req, res) => {
     const queryOption = {}
-    if (req.Model.modelName === 'Category') {
-      queryOption.populate = 'parent'
+    switch (req.Model.modelName) {
+      case 'Category':
+        queryOption.populate = 'parent'
+        break;
+      case 'Article':
+        queryOption.populate = 'categories'
+        break;
+      default:
+        break;
     }
     const list = await req.Model.find().setOptions(queryOption).limit(100)
     res.send(list)

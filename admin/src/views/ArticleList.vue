@@ -3,7 +3,7 @@
     <h2>文章列表</h2>
     <el-table :data="tableData">
       <el-table-column prop="_id" label="id" width="400"></el-table-column>
-      <el-table-column prop="categories" label="文章类型"></el-table-column>
+      <el-table-column prop="categoryName" label="文章类型"></el-table-column>
       <el-table-column prop="title" label="标题"></el-table-column>
       <el-table-column fixed="right" label="操作" width="200">
         <template slot-scope="scope">
@@ -29,7 +29,12 @@ export default {
     async initData() {
       const res = await this.$http.get("/rest/articles");
       this.tableData = res.data;
-      console.log(res.data);
+
+      this.tableData.map(obj => {
+        obj.categories.map(category => {
+          obj.categoryName.push(category.name + " ");
+        });
+      });
     },
 
     goEdit(id) {
