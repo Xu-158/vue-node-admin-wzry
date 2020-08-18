@@ -31,9 +31,11 @@ export default {
       this.tableData = res.data;
 
       this.tableData.map(obj => {
+        const categoryName = [];
         obj.categories.map(category => {
-          obj.categoryName.push(category.name + " ");
+          categoryName.push(category.name+" ")
         });
+        this.$set(obj,'categoryName',categoryName)
       });
     },
 

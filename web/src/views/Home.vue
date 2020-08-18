@@ -33,6 +33,17 @@
         </div>
       </template>
     </m-list-card>
+
+    <m-list-card title="英雄列表" iconClass="card-hero" :categories="heroesCats">
+      <template #items="{category}">
+        <div class="d-flex flex-wrap text-center">
+          <div class="hero-item pb-3 fs-lg px-1" v-for="(hero,index) in category.heroList" :key="index">
+            <img :src="hero.avatar" alt />
+            <div class="fs-sm">{{hero.name}}</div>
+          </div>
+        </div>
+      </template>
+    </m-list-card>
     <!-- 
     <m-card title="英雄列表" iconClass="card-hero"></m-card>
 
@@ -62,17 +73,23 @@ export default {
         "http://ossweb-img.qq.com/upload/adw/image/20200814/b2a7065b6bc93bea491bcc73b3f1a2e2.jpeg",
         "http://ossweb-img.qq.com/upload/adw/image/20200812/435cedc1f712e00802619029951a5d91.jpeg"
       ],
-      newsCats: []
+      newsCats: [],
+      heroesCats: []
     };
   },
   methods: {
     async getNewsCats() {
       const res = await this.$http.get("/news/list");
       this.newsCats = res.data;
+    },
+    async getHeroesCats() {
+      const res = await this.$http.get("/heroes/list");
+      this.heroesCats = res.data;
     }
   },
   created() {
     this.getNewsCats();
+    this.getHeroesCats();
   },
   filters: {
     date(val) {
@@ -106,6 +123,13 @@ export default {
     &:nth-child(4n) {
       border-right: none;
     }
+  }
+}
+.hero-item{
+  width: 20%;
+  margin-bottom: -0.6154rem;
+  img{
+    width: 100%;
   }
 }
 </style>
