@@ -25,27 +25,38 @@
 
     <m-list-card title="新闻资讯" iconClass="cc-menu-circle" :categories="newsCats">
       <template #items="{category}">
-        <div class="pb-3 fs-lg d-flex" v-for="(news,index) in category.newsList" :key="index">
+        <router-link
+          tag="div"
+          :to="`/articles/${news._id}`"
+          class="pb-3 fs-lg d-flex"
+          v-for="(news,index) in category.newsList"
+          :key="index"
+        >
           <span class="text-info fs-sm">[{{news.categoryName}}]</span>
           <span class="px-1">|</span>
           <span class="flex-1 text-dark text-ellipsis">{{news.title}}</span>
           <span class="text-grey-1 fs-sm">&nbsp;{{news.createdAt | date}}</span>
-        </div>
+        </router-link>
       </template>
     </m-list-card>
 
     <m-list-card title="英雄列表" iconClass="card-hero" :categories="heroesCats">
       <template #items="{category}">
         <div class="d-flex flex-wrap text-center">
-          <div class="hero-item pb-3 fs-lg px-1" v-for="(hero,index) in category.heroList" :key="index">
+          <router-link
+            tag="div"
+            :to="`heroes/${hero._id}`"
+            class="hero-item pb-3 fs-lg px-1"
+            v-for="(hero,index) in category.heroList"
+            :key="index"
+          >
             <img :src="hero.avatar" alt />
             <div class="fs-sm">{{hero.name}}</div>
-          </div>
+          </router-link>
         </div>
       </template>
     </m-list-card>
     <!-- 
-    <m-card title="英雄列表" iconClass="card-hero"></m-card>
 
     <m-card title="精彩视频" iconClass="video"></m-card>
 
@@ -100,7 +111,7 @@ export default {
 };
 </script>
 
-<style lang="scss">
+<style lang="scss" scoped>
 @import "../assets/scss/_variables.scss";
 
 .pagination-home {
@@ -125,10 +136,10 @@ export default {
     }
   }
 }
-.hero-item{
+.hero-item {
   width: 20%;
   margin-bottom: -0.6154rem;
-  img{
+  img {
     width: 100%;
   }
 }

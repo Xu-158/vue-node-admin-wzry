@@ -10,6 +10,8 @@ $colors: (
   "dark-1": #343440,
   "dark": #222,
   "black": #000,
+  "danger":#ff0000,
+  "blue":#0000ff
 );
 
 $border-color:map-get($colors, 'light-1');

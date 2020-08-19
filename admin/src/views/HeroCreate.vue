@@ -14,9 +14,22 @@
               :headers="getAuthHeaders()"
               :action="uploadUrl"
               :show-file-list="false"
-              :on-success="handleAvatarSuccess"
+              :on-success="res =>$set(model,'avatar',res.url)"
             >
               <img v-if="model.avatar" :src="model.avatar" class="avatar" />
+              <i v-else class="el-icon-plus avatar-uploader-icon"></i>
+            </el-upload>
+          </el-form-item>
+
+          <el-form-item label="banner">
+            <el-upload
+              class="avatar-uploader"
+              :headers="getAuthHeaders()"
+              :action="uploadUrl"
+              :show-file-list="false"
+              :on-success="res => $set(model,'banner',res.url)"
+            >
+              <img v-if="model.banner" :src="model.banner" class="avatar" />
               <i v-else class="el-icon-plus avatar-uploader-icon"></i>
             </el-upload>
           </el-form-item>
@@ -109,14 +122,43 @@
                   <i v-else class="el-icon-plus avatar-uploader-icon"></i>
                 </el-upload>
               </el-form-item>
+              <el-form-item label="冷却值">
+                <el-input type="text" v-model="item.delay"></el-input>
+              </el-form-item>
+              <el-form-item label="消耗">
+                <el-input type="text" v-model="item.cost"></el-input>
+              </el-form-item>
               <el-form-item label="描述">
                 <el-input type="textarea" v-model="item.description"></el-input>
               </el-form-item>
-              <el-form-item label="小提示">
-                <el-input type="textarea" v-model="item.tips"></el-input>
-              </el-form-item>
               <el-form-item>
                 <el-button type="danger" size="small" @click="toDelete(index)">删除</el-button>
+              </el-form-item>
+            </el-col>
+          </el-row>
+        </el-tab-pane>
+
+        <el-tab-pane label="搭档" name="partners">
+          <el-button style="margin-bottom:1rem" @click="model.partners.push({})">
+            <i class="el-icon-plus" style="color:blue;padding-right:0.5rem"></i>添加搭档
+          </el-button>
+
+          <el-row type="flex" style="flex-wrap:wrap">
+            <el-col :md="10" v-for="(item,index) in model.partners" :key="index" class="skill-item">
+              <el-form-item label="英雄">
+                <el-select filterable v-model="item.hero">
+                  <el-option 
+                  v-for="hero in heroes" 
+                  :key="hero._id"
+                  :value="hero._id"
+                  :label="hero.name"></el-option>
+                </el-select>
+              </el-form-item>
+              <el-form-item label="描述">
+                <el-input type="textarea" v-model="item.description"></el-input>
+              </el-form-item>
+              <el-form-item>
+                <el-button type="danger" size="small" @click="model.partners.slice(index,1)">删除</el-button>
               </el-form-item>
             </el-col>
           </el-row>
@@ -141,6 +183,7 @@ export default {
         name: "",
         avatar: "",
         skills: [],
+        partners: [],
         scores: {
           difficult: 0,
           skills: 0,
@@ -149,7 +192,8 @@ export default {
         }
       },
       categories: [],
-      items: []
+      items: [],
+      heroes:[]
     };
   },
   methods: {
@@ -192,8 +236,9 @@ export default {
       this.items = res.data;
     },
 
-    handleAvatarSuccess(res) {
-      this.model.avatar = res.url;
+     async initHeroes() {
+      const res = await this.$http.get(`/rest/heroes`);
+      this.heroes = res.data;
     },
 
     toDelete(index) {
@@ -217,6 +262,7 @@ export default {
   created() {
     this.initHeroCategories();
     this.initHeroItems();
+    this.initHeroes();
     this.id && this.initInfo(this.id);
   }
 };
