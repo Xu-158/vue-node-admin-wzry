@@ -15,8 +15,8 @@ body {
   -webkit-font-smoothing: antialiased;
 }
 
-p{
-  line-height: 1.5rem
+p {
+  line-height: 1.5rem;
 }
 
 // color
@@ -109,6 +109,20 @@ a {
   border-radius: 0.1538rem;
   font-size: map-get($font-sizes, "sm") * $base-font-size;
   padding: 0.3rem 0.6rem;
+  &.btn-lg {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    i{
+      color:map-get($colors,'primary');
+      font-size: 1.5rem;
+      margin-right: 5px;
+    }
+    background: map-get($colors, "light");
+    border: 1px solid $border-color;
+    padding: 0.8rem 1rem;
+    font-size: 1rem;
+  }
 }
 
 .nav {
@@ -163,7 +177,7 @@ a {
   }
 }
 
-.text-ellipsis{
+.text-ellipsis {
   display: inline-block;
   overflow: hidden;
   text-overflow: ellipsis;
