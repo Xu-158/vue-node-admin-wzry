@@ -1,0 +1,11 @@
+@uri = http://127.0.0.1:3000/admin
+@jsonType = Content-Type: application/json
+
+### 注册
+POST {{uri}}/categories/add
+{{jsonType}}
+
+{
+  "username":"xjf1ssss",
+  "password":"asdas123456"
+}
