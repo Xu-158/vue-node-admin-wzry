@@ -42,7 +42,7 @@ node_modules/
 jspm_packages/
 server/uploads/
 新建文件夹/
-admin1
+admin/
 
 # TypeScript v1 declaration files
 typings/

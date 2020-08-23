@@ -55,10 +55,10 @@ module.exports = {
   // 文件上传
   async uploadHandle(req, res) {
     let file = req.file
-    if (!flie) {
-      response(res, 1, '上传文件失败')
-      return
-    }
+    // if (!flie) {
+    //   response(res, 1, '上传文件失败')
+    //   return
+    // }
     file.url = `http://localhost:3000/admin/${file.pathUrl}/${file.filename}`
     response(res, 0, '上传成功', file)
   },
@@ -151,7 +151,7 @@ module.exports = {
    * ======================装备=API====================================
    */
   // 创建或修改装备
-  async itemEditHandle() {
+  async itemEditHandle(req,res) {
     const { id, name, icon } = req.body
     const isExist = await ItemModel.find({ name })
     // 添加不允许同名
@@ -186,7 +186,7 @@ module.exports = {
     // 跳过的条数
     let skip = (page - 1) * pageSize
     const itemTotal = await ItemModel.find().countDocuments() //countDocuments()计算集合中的文档数
-    const itemList = await Item.find().skip(skip).limit(pageSize)
+    const itemList = await ItemModel.find().skip(skip).limit(pageSize)
     response(res, 0, '获取装备列表成功', { itemTotal, itemList })
   },
 

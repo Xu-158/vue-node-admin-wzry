@@ -1,20 +1,22 @@
 const express = require('express')
 const handle = require('./handle.js')
 const path = require('path')
-const upload = require('../../utils/multer')()
+const handleMulter = require('../../utils/multer')
+
+const upload = handleMulter()
 
 // 创建路有对象
 const router = express.Router()
 
 // 托管静态文件
-router.use('/upload/images', express.static(path.join(__dirname, '../../uploads')))
+router.use('/uploads/images', express.static(path.join(__dirname, '../../uploads/images')))
 
 // 登陆
 router.post('/auth', handle.auth, handle.authHandle)
 router.post('/login', handle.loginHandle)
 
 // 文件上传
-router.post('/upload/:type', handle.auth, upload.single('file'), handle.uploadHandle)
+router.post('/uploads/:type', handle.auth, upload.single('file'), handle.uploadHandle)
 
 // 分类
 router.post('/categories/add', handle.auth, handle.cateEditHandle)
@@ -25,11 +27,11 @@ router.get('/categories/levelTow', handle.auth, handle.levelTwoHandle)
 router.get('/categories/item', handle.auth, handle.cateInfoHandle)
 
 // 装备
-router.post('/equip/add', handle.auth, handle.itemEditHandle)
-router.put('/equip/update', handle.auth, handle.itemEditHandle)
-router.delete('/equip/delete', handle.auth, handle.itemDeleteHandle)
-router.get('/equip/list', handle.auth, handle.itemListHandle)
-router.get('/equip/item', handle.auth, handle.itemInfoHandle)
+router.post('/item/add', handle.auth, handle.itemEditHandle)
+router.put('/item/update', handle.auth, handle.itemEditHandle)
+router.delete('/item/delete', handle.auth, handle.itemDeleteHandle)
+router.get('/item/list', handle.auth, handle.itemListHandle)
+router.get('/item/item', handle.auth, handle.itemInfoHandle)
 
 // 英雄
 router.post('/hero/add', handle.auth, handle.heroEditHandle)
