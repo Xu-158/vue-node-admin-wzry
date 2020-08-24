@@ -11,10 +11,10 @@
           <el-form-item label="头像">
             <el-upload
               class="avatar-uploader"
-              :headers="getAuthHeaders()"
               :action="uploadUrl"
               :show-file-list="false"
-              :on-success="res =>$set(model,'avatar',res.url)"
+              :headers="uploadHeaders"
+              :on-success="uploadAvatar"
             >
               <img v-if="model.avatar" :src="model.avatar" class="avatar" />
               <i v-else class="el-icon-plus avatar-uploader-icon"></i>
@@ -24,10 +24,10 @@
           <el-form-item label="banner">
             <el-upload
               class="avatar-uploader"
-              :headers="getAuthHeaders()"
               :action="uploadUrl"
               :show-file-list="false"
-              :on-success="res => $set(model,'banner',res.url)"
+              :headers="uploadHeaders"
+              :on-success="uploadBanner"
             >
               <img v-if="model.banner" :src="model.banner" class="avatar" />
               <i v-else class="el-icon-plus avatar-uploader-icon"></i>
@@ -113,13 +113,17 @@
               <el-form-item label="图片">
                 <el-upload
                   class="avatar-uploader"
-                  :headers="getAuthHeaders()"
                   :action="uploadUrl"
                   :show-file-list="false"
-                  :on-success="res => $set(item,'icon',res.url)"
+                  :headers="uploadHeaders"
+                  :on-success="uploadSkill"
                 >
                   <img v-if="item.icon" :src="item.icon" class="avatar" />
-                  <i v-else class="el-icon-plus avatar-uploader-icon"></i>
+                  <i
+                    v-else
+                    class="el-icon-plus avatar-uploader-icon"
+                    @click="uploadSkillIndex=index"
+                  ></i>
                 </el-upload>
               </el-form-item>
               <el-form-item label="冷却值">
@@ -147,11 +151,12 @@
             <el-col :md="10" v-for="(item,index) in model.partners" :key="index" class="skill-item">
               <el-form-item label="英雄">
                 <el-select filterable v-model="item.hero">
-                  <el-option 
-                  v-for="hero in heroes" 
-                  :key="hero._id"
-                  :value="hero._id"
-                  :label="hero.name"></el-option>
+                  <el-option
+                    v-for="hero in heroes"
+                    :key="hero._id"
+                    :value="hero._id"
+                    :label="hero.name"
+                  ></el-option>
                 </el-select>
               </el-form-item>
               <el-form-item label="描述">
@@ -173,72 +178,84 @@
 </template>
 
 <script>
+import mixins_upload from "@/assets/javascript/mixins_upload";
+import {
+  saveHero,
+  updateHero,
+  initHeroItem,
+  initHeroCategories,
+  getHero,
+} from "@/api/hero";
+import { getItem } from "@/api/items";
 export default {
   props: {
-    id: { type: String }
+    id: { type: String },
   },
+  mixins: [mixins_upload],
   data() {
     return {
       model: {
         name: "",
         avatar: "",
+        banner: "",
         skills: [],
         partners: [],
         scores: {
           difficult: 0,
           skills: 0,
           attack: 0,
-          survive: 0
-        }
+          survive: 0,
+        },
       },
       categories: [],
       items: [],
-      heroes:[]
+      heroes: [],
+      uploadSkillIndex: 0, // 用来标记上传的是哪个技能图标
     };
   },
   methods: {
     async save() {
       let res, message;
+      let model = this.model;
+      let id = this.id;
       if (this.id) {
         // 更新
-        res = await this.$http.put(`/rest/heroes/${this.id}`, this.model);
+        res = await updateHero({ id, model });
         message = "修改";
       } else {
         // 新增
-        res = await this.$http.post("/rest/heroes", this.model);
+        res = await saveHero({ model });
         message = "添加";
       }
       if (res.data) {
         this.$message({
           message: `${message}成功！`,
-          type: "success"
+          type: "success",
         });
-        this.$router.push("/heroes/list");
+        this.$router.push("/hero/heroList");
       } else {
         this.$message.error(`${message}错误!`);
       }
-      console.log(res.data);
     },
 
     async initInfo(id) {
-      const res = await this.$http.get(`/rest/heroes/${id}`);
-      // this.model = res.data;
+      const res = await initHeroItem({ id: this.id });
       this.model = Object.assign({}, this.model, res.data);
     },
 
     async initHeroCategories() {
-      const res = await this.$http.get(`/rest/categories`);
+      const res = await initHeroCategories();
       this.categories = res.data;
     },
 
     async initHeroItems() {
-      const res = await this.$http.get(`/rest/items`);
-      this.items = res.data;
+      const res = await getItem();
+      this.items = res.data.itemList;
     },
 
-     async initHeroes() {
-      const res = await this.$http.get(`/rest/heroes`);
-      this.heroes = res.data;
+    async initHeroes() {
+      const res = await getHero();
+      this.heroes = res.data.heroList;
     },
 
     toDelete(index) {
@@ -248,23 +265,33 @@ export default {
         {
           confirmButtonText: "确定",
           cancelButtonText: "取消",
-          type: "warning"
+          type: "warning",
         }
       ).then(async () => {
         this.$message({
           message: `删除成功！`,
-          type: "success"
+          type: "success",
         });
         this.model.skills.splice(index, 1);
       });
-    }
+    },
+
+    uploadAvatar(res) {
+      this.model.avatar = res.data.url;
+    },
+    uploadBanner(res) {
+      this.model.banner = res.data.url;
+    },
+    uploadSkill(res) {
+      this.$set(this.model.skills[this.uploadSkillIndex], "icon", res.data.url);
+    },
   },
   created() {
     this.initHeroCategories();
     this.initHeroItems();
     this.initHeroes();
     this.id && this.initInfo(this.id);
-  }
+  },
 };
 </script>
 

@@ -48,7 +48,7 @@ export default {
       const { page, pageSize } = this;
       const res = await getItem({ page, pageSize });
       this.tableData = res.data.itemList;
-      this.itemTotal = res.data.itemTotal
+      this.itemTotal = res.data.itemTotal;
     },
 
     goEdit(id) {
@@ -68,6 +68,10 @@ export default {
               message: `删除成功！`,
               type: "success",
             });
+            // 如果当前不是第一页且当前页只有一条数据
+            if (page != 1 && heroList.length == 1) {
+              this.page = page - 1;
+            }
             this.initData();
           }
         })

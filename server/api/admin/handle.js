@@ -153,7 +153,7 @@ module.exports = {
   // 创建或修改装备
   async itemEditHandle(req,res) {
     const { id, name, icon } = req.body
-    const isExist = await ItemModel.find({ name })
+    const isExist = await ItemModel.findOne({ name })
     // 添加不允许同名
     if (isExist && !id) {
       response(res, 1, '该装备已存在')
@@ -202,18 +202,18 @@ module.exports = {
    */
   // 添加或修改英雄
   async heroEditHandle(req, res) {
-    const { id, heroItem } = req.body
-    const isExist = await HeroModel.findOne({ name: heroItem.name })
+    const { id, model } = req.body
+    const isExist = await HeroModel.findOne({ name: model.name })
     if (isExist && !id) {
       response(res, 1, '该英雄已存在')
       return
     }
     let hero, msg
     if (id) {
-      hero = await HeroModel.findByIdAndUpdate(id, heroItem)
+      hero = await HeroModel.findByIdAndUpdate(id, model)
       msg = '更新英雄成功'
     } else {
-      hero = await HeroModel.create(heroItem)
+      hero = await HeroModel.create(model)
       msg = '新建英雄成功'
     }
     response(res, 0, msg, hero)
