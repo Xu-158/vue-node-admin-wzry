@@ -1,7 +1,7 @@
 import httpUtil from '@/utils/request'
 
 // 添加分类
-export function saveCate (data) {
+export function saveCate(data) {
   return httpUtil({
     url: '/categories/add',
     method: 'post',
@@ -10,7 +10,7 @@ export function saveCate (data) {
 }
 
 // 修改分类
-export function updateCate (data) {
+export function updateCate(data) {
   return httpUtil({
     url: '/categories/update',
     method: 'put',
@@ -19,7 +19,7 @@ export function updateCate (data) {
 }
 
 // 删除分类
-export function deleteCate (params) {
+export function deleteCate(params) {
   return httpUtil({
     url: '/categories/delete',
     method: 'delete',
@@ -28,7 +28,7 @@ export function deleteCate (params) {
 }
 
 // 查询一级分类
-export function initCateOne (params) {
+export function initCateOne(params) {
   return httpUtil({
     url: '/categories/levelOne',
     method: 'get',
@@ -37,7 +37,7 @@ export function initCateOne (params) {
 }
 
 // 查询二级分类
-export function initCateTwo (params) {
+export function initCateTwo(params) {
   return httpUtil({
     url: '/categories/levelTow',
     method: 'get',
@@ -46,10 +46,54 @@ export function initCateTwo (params) {
 }
 
 // 查询要编辑的分类信息
-export function initCateItem (params) {
+export function initCateItem(params) {
   return httpUtil({
     url: '/categories/item',
     method: 'get',
     params
   })
 }
+
+export function saveAds(data) {
+  return httpUtil({
+    url: '/ads/add',
+    method: 'post',
+    data
+  })
+}
+
+export function updateAds(data) {
+  return httpUtil({
+    url: '/ads/update',
+    method: 'put',
+    data
+  })
+}
+
+export function deleteAds(params) {
+  return httpUtil({
+    url: '/ads/delete',
+    method: 'delete',
+    params
+  })
+}
+
+export function initAds(params) {
+  return httpUtil({
+    url: '/ads/list',
+    method: 'get',
+    params
+  })
+}
+
+export function initAdsInfo(params) {
+  return httpUtil({
+    url: '/ads/item',
+    method: 'get',
+    params
+  })
+}
+
+
+
+

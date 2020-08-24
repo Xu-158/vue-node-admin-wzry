@@ -34,12 +34,6 @@
             <el-menu-item index="/system/cateAdd">新建分类</el-menu-item>
             <el-menu-item index="/system/cateList">分类列表</el-menu-item>
           </el-menu-item-group>
-        </el-submenu>
-
-        <el-submenu index="3">
-          <template slot="title">
-            <i class="el-icon-message"></i>运营管理
-          </template>
           <el-menu-item-group>
             <template slot="title">广告位</template>
             <el-menu-item index="/system/adsAdd">新建广告位</el-menu-item>

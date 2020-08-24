@@ -14,13 +14,15 @@
           <el-form-item label="图片">
             <el-upload
               class="avatar-uploader"
-              :headers="getAuthHeaders()"
               :action="uploadUrl"
               :show-file-list="false"
-              :on-success="res => $set(item,'image',res.url)"
+              :headers="uploadHeaders"
+              :on-success="uploadAds"
             >
-              <img v-if="item.image" :src="item.image" class="avatar" />
-              <i v-else class="el-icon-plus avatar-uploader-icon"></i>
+              <div @click="changeIndex(index)" class="banner">
+                <img v-if="item.image" :src="item.image" class="banner-img" />
+                <i v-else class="el-icon-plus banner-uploader-icon"></i>
+              </div>
             </el-upload>
           </el-form-item>
 
@@ -32,7 +34,7 @@
 
       <el-row type="flex" style="flex-wrap:wrap">
         <el-form-item>
-          <el-button style type="success" @click="model.items.push({})">
+          <el-button style type="success" @click="model.items.push({item})">
             <i class="el-icon-plus" style="color:white;padding-right:0.5rem"></i>添加广告
           </el-button>
         </el-form-item>
@@ -46,68 +48,90 @@
 </template>
 
 <script>
+import { saveAds, updateAds, initAdsInfo } from "@/api/system";
+import mixins_upload from "@/assets/javascript/mixins_upload";
 export default {
   props: {
-    id: { type: String }
+    id: { type: String },
   },
+  mixins: [mixins_upload],
   data() {
     return {
       model: {
-        items: []
-      }
+        name: "",
+        items: [],
+      },
+      uploadAdsIndex: 0,
     };
+  },
+  watch: {
+    $route() {
+      if (this.id) {
+        this.getInfo();
+      } else {
+        this.model.name = "";
+        this.model.items = [];
+      }
+    },
   },
   methods: {
     async save() {
       let res, message;
+      const { name, items } = this.model;
+      const id = this.id;
       if (this.id) {
         // 更新
-        res = await this.$http.put(`/rest/ads/${this.id}`, this.model);
+        res = await updateAds({ id, name, items });
         message = "修改";
       } else {
         // 新增
-        res = await this.$http.post("/rest/ads", this.model);
+        res = await saveAds(this.model);
         message = "添加";
       }
       if (res.data) {
         this.$message({
           message: `${message}成功！`,
-          type: "success"
+          type: "success",
         });
-        this.$router.push("/ads/list");
+        this.$router.push("/system/adsList");
       } else {
         this.$message.error(`${message}错误!`);
       }
-      console.log(res.data);
     },
 
-    
     toDelete(index) {
-      this.$confirm(
-        `此操作将永久删除 "${this.model.items[index].name}", 是否继续?`,
-        "提示",
-        {
-          confirmButtonText: "确定",
-          cancelButtonText: "取消",
-          type: "warning"
-        }
-      ).then(async () => {
+      this.$confirm(`此操作将永久删除, 是否继续?`, "提示", {
+        confirmButtonText: "确定",
+        cancelButtonText: "取消",
+        type: "warning",
+      }).then(async () => {
         this.$message({
           message: `删除成功！`,
-          type: "success"
+          type: "success",
         });
         this.model.items.splice(index, 1);
       });
     },
 
     async getInfo(id) {
-      const res = await this.$http.get(`/rest/ads/${id}`);
+      const res = await initAdsInfo({ id: id });
+      if (!res.data.items && res.data.items.length == 0) {
+        this.model.items = [];
+      }
       this.model = res.data;
-    }
+    },
+
+    uploadAds(res) {
+      this.$set(this.model.items[this.uploadAdsIndex], "image", res.data.url);
+    },
+    changeIndex(index) {
+      console.log("indexindexindex" + index);
+      this.uploadAdsIndex = index;
+    },
   },
-  created() {
+  mounted() {
     this.id && this.getInfo(this.id);
-  }
+  },
 };
 </script>
 
@@ -122,5 +146,15 @@ export default {
   padding: 1rem;
   border: 0.1px dashed grey;
   margin: 2rem;
+}
+.banner {
+  min-width: 100px;
+  min-height: 100px;
+  height: auto;
+}
+.banner-img {
+  width: 100%;
+  height: 100%;
+  line-height: 0px;
 }
 </style>

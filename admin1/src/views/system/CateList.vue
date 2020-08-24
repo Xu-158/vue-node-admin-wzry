@@ -9,9 +9,8 @@
 
     <el-table :data="tableData">
       <el-table-column prop="_id" label="id" width="400"></el-table-column>
-      <!-- <el-table-column prop="parent.name" label="上级分类"></el-table-column> -->
       <el-table-column prop="name" label="分类名称"></el-table-column>
-      <el-table-column label="设置">
+      <el-table-column label="查看">
         <template slot-scope="scope">
           <el-button
             size="mini"

@@ -297,6 +297,8 @@ module.exports = {
     let data, msg
     if (id) {
       // 修改广告位
+      console.log(name);
+      console.log(items);
       data = await AdModel.findByIdAndUpdate(id, { name, items })
       msg = '更新广告位成功'
     } else {
@@ -329,6 +331,8 @@ module.exports = {
       res.status(422).send('服务器查询出错~')
       return
     }
+    const da = await AdModel.findById(id)
+    console.log(da);
     response(res, 0, '获取广告位详情成功', item)
   },
 
