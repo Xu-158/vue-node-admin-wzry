@@ -68,7 +68,7 @@ module.exports = {
    */
   // 创建或修改分类
   async cateEditHandle(req, res) {
-    const { name, parent } = req.body
+    const { name, parent } = req.body.model
     let model = {} //创建或修改对应模型的对象
     let isExist = false //判断分类是否存在
 
@@ -100,6 +100,11 @@ module.exports = {
       data = await CategoryModel.create(model)
       msg = '创建分类成功'
     } else {
+      model = {
+        name:name,
+        parent:undefined,
+      }
+      console.log(name);
       data = await CategoryModel.findByIdAndUpdate(req.body.id, model)
       msg = '修改分类成功'
     }
@@ -133,7 +138,7 @@ module.exports = {
   },
 
   // 查询所有二级分类
-  async levelTwoHandle() {
+  async levelTwoHandle(req,res) {
     const id = req.query.id
     let totalCate = await CategoryModel.find()
     let levelTwo = totalCate.filter(data => String(data.parent) === id && data.parent)
@@ -143,8 +148,8 @@ module.exports = {
   // 获取分类详细
   async cateInfoHandle(req, res) {
     const id = req.query.id
-    let item = await CategoryModel.findById(id)
-    response(res, 0, '获取分类详细成功', item)
+    let cate = await CategoryModel.findById(id)
+    response(res, 0, '获取分类详细成功', cate)
   },
 
   /**
