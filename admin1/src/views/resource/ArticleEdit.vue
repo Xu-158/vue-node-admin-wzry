@@ -27,65 +27,76 @@
 
 <script>
 import { VueEditor } from "vue2-editor";
+import {
+  getArticleTwo,
+  saveArticle,
+  updateArticle,
+  uploadEditorFile,
+  initArticleInfo,
+} from "@/api/resource";
 export default {
   components: { VueEditor },
   props: {
-    id: { type: String }
+    id: { type: String },
   },
   data() {
     return {
       model: {
-        categories: []
+        categories: [],
       },
-      categories: []
+      categories: [],
     };
   },
   methods: {
     async save() {
       let res, message;
+      const { id, model } = this;
       if (this.id) {
         // 更新
-        res = await this.$http.put(`/rest/articles/${this.id}`, this.model);
+        res = await updateArticle({ id, model });
         message = "修改";
       } else {
         // 新增
-        res = await this.$http.post("/rest/articles", this.model);
+        res = await saveArticle({ model });
         message = "添加";
       }
       if (res.data) {
+        // 如果当前不是第一页且当前页只有一条数据
+        if (page != 1 && articleList.length == 1) {
+          this.page = page - 1;
+        }
         this.$message({
           message: `${message}成功！`,
-          type: "success"
+          type: "success",
         });
-        this.$router.push("/articles/list");
+        this.$router.push("/resource/articleList");
       } else {
         this.$message.error(`${message}错误!`);
       }
-      console.log(res.data);
     },
 
     async getInfo(id) {
-      const res = await this.$http.get(`/rest/articles/${id}`);
+      const res = await initArticleInfo({ id });
       this.model = res.data;
     },
 
     async getCategoriesOption() {
-      const res = await this.$http.get(`/rest/categories`);
+      const res = await getArticleTwo();
       this.categories = res.data;
     },
 
     async handleImageAdded(file, Editor, cursorLocation, resetUploader) {
       const formData = new FormData();
       formData.append("file", file);
-      const result = await this.$http.post("/upload", formData);
+      const result = await uploadEditorFile(formData);
       Editor.insertEmbed(cursorLocation, "image", result.data.url);
       resetUploader();
-    }
+    },
   },
   created() {
     this.id && this.getInfo(this.id);
     this.getCategoriesOption();
-  }
+  },
 };
 </script>
 

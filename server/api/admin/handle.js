@@ -332,7 +332,7 @@ module.exports = {
    */
   // 添加或修改文章
   async articleEditHandle(req, res) {
-    const { id, title, content, hot, categories } = req.body
+    const { id, title, content, hot, categories } = req.body.model
     const isExist = await ArticleModel.findOne({ title })
     if (isExist && !id) {
       response(res, 1, '该文章已存在')

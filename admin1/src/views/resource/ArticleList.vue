@@ -12,14 +12,28 @@
         </template>
       </el-table-column>
     </el-table>
+    <div class="page">
+      <el-pagination
+        background
+        layout="prev, pager, next"
+        :total="articleTotal"
+        :page-size="pageSize"
+        :current-page="page"
+        @current-change="pageChange"
+      ></el-pagination>
+    </div>
   </div>
 </template>
 
 <script>
+import { initArticle, deleteArticle } from "@/api/resource";
 export default {
   data() {
     return {
-      tableData: []
+      tableData: [],
+      page: 1,
+      pageSize: 5,
+      articleTotal: 1, // 总数量
     };
   },
   created() {
@@ -27,34 +41,36 @@ export default {
   },
   methods: {
     async initData() {
-      const res = await this.$http.get("/rest/articles");
-      this.tableData = res.data;
+      const { page, pageSize } = this;
+      const res = await initArticle({page,pageSize});
+      this.tableData = res.data.articleList;
+      this.articleTotal = res.data.articleTotal;
 
-      this.tableData.map(obj => {
+      this.tableData.map((obj) => {
         const categoryName = [];
-        obj.categories.map(category => {
-          categoryName.push(category.name+" ")
+        obj.categories.map((category) => {
+          categoryName.push(category.name + " ");
         });
-        this.$set(obj,'categoryName',categoryName)
+        this.$set(obj, "categoryName", categoryName);
       });
     },
 
     goEdit(id) {
-      this.$router.push(`/articles/edit/${id}`);
+      this.$router.push(`/resource/articleUpdate/${id}`);
     },
 
     toDelete(row) {
       this.$confirm(`此操作将永久删除 "${row.title}", 是否继续?`, "提示", {
         confirmButtonText: "确定",
         cancelButtonText: "取消",
-        type: "warning"
+        type: "warning",
       })
         .then(async () => {
-          const result = await this.$http.delete(`/rest/articles/${row._id}`);
+          const result = await deleteArticle({id:row._id});
           if (result.data) {
             this.$message({
               message: `删除成功！`,
-              type: "success"
+              type: "success",
             });
             this.initData();
           }
@@ -62,11 +78,17 @@ export default {
         .catch(() => {
           this.$message({
             type: "info",
-            message: "已取消删除"
+            message: "已取消删除",
           });
         });
-    }
-  }
+    },
+
+    // 页数改变
+    pageChange(currentPage) {
+      this.page = currentPage;
+      this.initData();
+    },
+  },
 };
 </script>
 
