@@ -101,8 +101,8 @@ module.exports = {
       msg = '创建分类成功'
     } else {
       model = {
-        name:name,
-        parent:undefined,
+        name: name,
+        parent: undefined,
       }
       console.log(name);
       data = await CategoryModel.findByIdAndUpdate(req.body.id, model)
@@ -138,7 +138,7 @@ module.exports = {
   },
 
   // 查询所有二级分类
-  async levelTwoHandle(req,res) {
+  async levelTwoHandle(req, res) {
     const id = req.query.id
     let totalCate = await CategoryModel.find()
     let levelTwo = totalCate.filter(data => String(data.parent) === id && data.parent)
@@ -156,7 +156,7 @@ module.exports = {
    * ======================装备=API====================================
    */
   // 创建或修改装备
-  async itemEditHandle(req,res) {
+  async itemEditHandle(req, res) {
     const { id, name, icon } = req.body
     const isExist = await ItemModel.findOne({ name })
     // 添加不允许同名
@@ -277,11 +277,12 @@ module.exports = {
   },
 
   // -----获取英雄二级分类 ---- 
-  // async heroCateHandle(req, res) {
-  //   // 找出英雄下的子分类
-  //   const heroCate = await CategoryModel.find({ parent: "5ef9a67208fb182c3c173e77" })
-  //   response(res, 0, '获取英雄二级分类成功', heroCate)
-  // },
+  async heroCateHandle(req, res) {
+    // 找出英雄下的子分类
+    const heroCate = await CategoryModel.find({ name: "英雄分类" })
+    const heroCateList = await CategoryModel.find({ parent: heroCate[0]._id })
+    response(res, 0, '获取英雄二级分类成功', heroCateList)
+  },
 
   /**
    * ========================广告位=API============================
@@ -405,6 +406,15 @@ module.exports = {
       return
     }
     response(res, 0, '获取文章详情成功', data)
+  },
+
+  // -----获取文章二级分类 ---- 
+  async articleCateHandle(req, res) {
+    // 找出文章下的子分类
+    const articleCate = await CategoryModel.find({ name: "新闻分类" })
+    console.log(articleCate);
+    const articleCateList = await CategoryModel.find({ parent: articleCate[0]._id })
+    response(res, 0, '获取英雄二级分类成功', articleCateList)
   },
 
   /**

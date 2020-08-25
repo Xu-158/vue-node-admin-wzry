@@ -39,7 +39,7 @@ router.put('/hero/update', handle.auth, handle.heroEditHandle)
 router.delete('/hero/delete', handle.auth, handle.heroDeleteHandle)
 router.get('/hero/list', handle.auth, handle.heroListHandle)
 router.get('/hero/item', handle.auth, handle.heroInfoHandle)
-// router.get('/hero/cate', handle.auth, handle.heroCateHandle)
+router.get('/hero/cate', handle.auth, handle.heroCateHandle)
 
 // 广告位
 router.post('/ads/add', handle.auth, handle.adsEditHandle)
@@ -54,7 +54,7 @@ router.put('/article/update', handle.auth, handle.articleEditHandle)
 router.delete('/article/delete', handle.auth, handle.articleDeleteHandle)
 router.get('/article/list', handle.auth, handle.articleListHandle)
 router.get('/article/item', handle.auth, handle.articleInfoHandle)
-// router.get('/article/cate', handle.auth, handle.articleCateHandle)
+router.get('/article/cate', handle.auth, handle.articleCateHandle)
 
 // 管理员
 router.post('/user/add', handle.auth, handle.userEditHandle)

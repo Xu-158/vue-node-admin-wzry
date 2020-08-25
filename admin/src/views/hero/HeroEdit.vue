@@ -39,7 +39,7 @@
           </el-form-item>
 
           <el-form-item label="类型">
-            <el-select v-model="model.categories" multiple>
+            <el-select v-model="model.categories" multiple :multiple-limit="2">
               <el-option
                 v-for="item of categories"
                 :key="item.id"
@@ -68,7 +68,7 @@
           </el-form-item>
 
           <el-form-item label="顺风出装">
-            <el-select v-model="model.items1" multiple>
+            <el-select v-model="model.items1" multiple :multiple-limit="6">
               <el-option
                 v-for="item of items"
                 :key="item.id"
@@ -79,7 +79,7 @@
           </el-form-item>
 
           <el-form-item label="逆风出装">
-            <el-select v-model="model.items2" multiple>
+            <el-select v-model="model.items2" multiple :multiple-limit="6">
               <el-option
                 v-for="item of items"
                 :key="item.id"
@@ -246,7 +246,7 @@ export default {
     },
 
     async initHeroItems() {
-      const res = await getItem();
+      const res = await getItem({ page: 1, pageSize: 999 });
       this.items = res.data.itemList;
     },
 

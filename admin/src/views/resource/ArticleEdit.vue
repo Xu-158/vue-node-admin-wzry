@@ -61,10 +61,6 @@ export default {
         message = "添加";
       }
       if (res.statusCode === 0) {
-        // 如果当前不是第一页且当前页只有一条数据
-        if (page != 1 && articleList.length == 1) {
-          this.page = page - 1;
-        }
         this.$message.success(`${res.msg}`);
         this.$router.push("/resource/articleList");
       } else {

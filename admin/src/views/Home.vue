@@ -1,16 +1,12 @@
 <template>
-  <div>欢迎管理员：{{username}}</div>
+  <div>首页啊</div>
 </template>
 
 <script>
 export default {
   data() {
     return {
-      username: "",
     };
-  },
-  mounted() {
-    this.username = this.$route.query.username
   },
 };
 </script>

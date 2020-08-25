@@ -47,7 +47,7 @@ export default {
         this.$message.success(`${res.msg}`);
         this.$router.push("/system/userList");
       } else {
-        this.$message.error(`${res.msg}错误!`);
+        this.$message.error(`${res.msg}!`);
       }
     },
 

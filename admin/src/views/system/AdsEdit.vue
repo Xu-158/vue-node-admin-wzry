@@ -34,7 +34,7 @@
 
       <el-row type="flex" style="flex-wrap:wrap">
         <el-form-item>
-          <el-button style type="success" @click="model.items.push({item})">
+          <el-button style type="success" @click="addAd">
             <i class="el-icon-plus" style="color:white;padding-right:0.5rem"></i>添加广告
           </el-button>
         </el-form-item>
@@ -118,11 +118,18 @@ export default {
       this.model = res.data;
     },
 
+    // 添加一个广告项
+    addAd() {
+      this.model.items.push({
+        image: "",
+        url: "",
+      });
+    },
+
     uploadAds(res) {
       this.$set(this.model.items[this.uploadAdsIndex], "image", res.data.url);
     },
     changeIndex(index) {
-      console.log("indexindexindex" + index);
       this.uploadAdsIndex = index;
     },
   },
@@ -148,6 +155,9 @@ export default {
   min-width: 100px;
   min-height: 100px;
   height: auto;
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }
 .banner-img {
   width: 100%;

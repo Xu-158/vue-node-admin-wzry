@@ -57,21 +57,19 @@ export default {
     },
 
     toDelete(row) {
+      const { page, tableData } = this;
       this.$confirm(`此操作将永久删除 "${row.name}", 是否继续?`, "提示", {
         confirmButtonText: "确定",
         cancelButtonText: "取消",
         type: "warning",
       })
         .then(async () => {
-          const result = await deleteHero({ id: row._id });
-          if (result.data) {
-            this.$message({
-              message: `删除成功！`,
-              type: "success",
-            });
+          const res = await deleteHero({ id: row._id });
+          if (res.statusCode === 0) {
+            this.$message.success(`${res.msg}`);
             // 如果当前不是第一页且当前页只有一条数据
-            if (page != 1 && heroList.length == 1) {
-              this.page = page - 1;
+            if (page != 1 && tableData.length == 1) {
+              this.page--;
             }
             this.initData();
           }

@@ -42,13 +42,13 @@ export default {
   methods: {
     async initData() {
       const { page, pageSize } = this;
-      const res = await initArticle({page,pageSize});
+      const res = await initArticle({ page, pageSize });
       this.tableData = res.data.articleList;
       this.articleTotal = res.data.articleTotal;
 
       this.tableData.map((obj) => {
         const categoryName = [];
-        obj.categories.map((category) => {
+        obj.categoryInfo.map((category) => {
           categoryName.push(category.name + " ");
         });
         this.$set(obj, "categoryName", categoryName);
@@ -60,18 +60,20 @@ export default {
     },
 
     toDelete(row) {
+      const { page, tableData } = this;
       this.$confirm(`此操作将永久删除 "${row.title}", 是否继续?`, "提示", {
         confirmButtonText: "确定",
         cancelButtonText: "取消",
         type: "warning",
       })
         .then(async () => {
-          const result = await deleteArticle({id:row._id});
-          if (result.data) {
-            this.$message({
-              message: `删除成功！`,
-              type: "success",
-            });
+          const res = await deleteArticle({ id: row._id });
+          if (res.statusCode === 0) {
+            this.$message.success(`${res.msg}`);
+            // 如果当前不是第一页且当前页只有一条数据
+            if (page != 1 && tableData.length == 1) {
+              this.page--;
+            }
             this.initData();
           }
         })
