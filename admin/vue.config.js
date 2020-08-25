@@ -8,5 +8,7 @@ module.exports = {
         'views': '@/views',
       }
     }
-  }
+  },
+  // 关闭 eslint校验
+  lintOnSave: false
 }
