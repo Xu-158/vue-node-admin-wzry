@@ -60,18 +60,15 @@ export default {
         res = await saveArticle({ model });
         message = "添加";
       }
-      if (res.data) {
+      if (res.statusCode === 0) {
         // 如果当前不是第一页且当前页只有一条数据
         if (page != 1 && articleList.length == 1) {
           this.page = page - 1;
         }
-        this.$message({
-          message: `${message}成功！`,
-          type: "success",
-        });
+        this.$message.success(`${res.msg}`);
         this.$router.push("/resource/articleList");
       } else {
-        this.$message.error(`${message}错误!`);
+        this.$message.error(`${res.msg}错误!`);
       }
     },
 

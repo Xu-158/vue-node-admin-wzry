@@ -14,5 +14,5 @@ require('./api/admin/index')(app)
 require('./api/web/index')(app)
 
 app.listen(3000, () => {
-  console.log('server at  http://127.0.0.1:3000');
+  console.log('RUN AT  http://127.0.0.1:3000');
 })

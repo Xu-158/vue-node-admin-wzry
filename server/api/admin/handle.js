@@ -420,7 +420,7 @@ module.exports = {
       response(res, 1, '该管理员已存在')
       return
     }
-    let user, msg
+    let userNew, msg
     if (id) {
       // 验证密码
       const user = await AdminUserModel.findById(id).select('+password')
@@ -430,13 +430,13 @@ module.exports = {
         response(res, 1, '密码错误')
         return
       }
-      user = await UserModel.findByIdAndUpdate(id, { username, password })
+      userNew = await AdminUserModel.findByIdAndUpdate(id, { username, password })
       msg = '更新管理员成功'
     } else {
-      user = await UserModel.create({ username, password })
+      userNew = await AdminUserModel.create({ username, password })
       msg = '新建管理员成功'
     }
-    response(res, 0, msg, user)
+    response(res, 0, msg, userNew)
   },
 
   // 删除管理员

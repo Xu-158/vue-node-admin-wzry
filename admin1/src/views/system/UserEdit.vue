@@ -5,7 +5,7 @@
       <el-form-item label="用户名">
         <el-input v-model="model.username"></el-input>
       </el-form-item>
-            <el-form-item label="密码">
+      <el-form-item label="密码">
         <el-input type="text" v-model="model.password"></el-input>
       </el-form-item>
       <el-form-item>
@@ -16,46 +16,49 @@
 </template>
 
 <script>
+import { addUser, updateUser, initUserInfo } from "@/api/user";
 export default {
   props: {
-    id: { type: String }
+    id: { type: String },
   },
   data() {
     return {
-      model: {},
+      model: {
+        username: "",
+        password: "",
+      },
     };
   },
   methods: {
     async save() {
       let res, message;
-      if (this.id) {
+      const { username, password } = this.model;
+      const id = this.id;
+      if (id) {
         // 更新
-        res = await this.$http.put(`/rest/admin_users/${this.id}`, this.model);
+        res = await updateUser({ id, username, password });
         message = "修改";
       } else {
         // 新增
-        res = await this.$http.post("/rest/admin_users", this.model);
+        res = await addUser({ username, password });
         message = "添加";
       }
-      if (res.data) {
-        this.$message({
-          message: `${message}成功！`,
-          type: "success"
-        });
-        this.$router.push("/admin_users/list");
+      if (res.statusCode === 0) {
+        this.$message.success(`${res.msg}`);
+        this.$router.push("/system/userList");
       } else {
-        this.$message.error(`${message}错误!`);
+        this.$message.error(`${res.msg}错误!`);
       }
     },
 
     async getInfo(id) {
-      const res = await this.$http.get(`/rest/admin_users/${id}`);
+      const res = await initUserInfo({ id });
       this.model = res.data;
     },
   },
   created() {
     this.id && this.getInfo(this.id);
-  }
+  },
 };
 </script>
 

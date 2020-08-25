@@ -15,38 +15,38 @@
 </template>
 
 <script>
+import { getUser, deleteUser } from "@/api/user";
 export default {
   data() {
     return {
-      tableData: []
+      tableData: [],
     };
   },
   created() {
     this.initData();
   },
   methods: {
-
     async initData() {
-      const res = await this.$http.get("/rest/admin_users");
+      const res = await getUser();
       this.tableData = res.data;
     },
 
     goEdit(id) {
-      this.$router.push(`/admin_users/edit/${id}`);
+      this.$router.push(`/system/userUpdate/${id}`);
     },
 
     toDelete(row) {
       this.$confirm(`此操作将永久删除 "${row.username}", 是否继续?`, "提示", {
         confirmButtonText: "确定",
         cancelButtonText: "取消",
-        type: "warning"
+        type: "warning",
       })
         .then(async () => {
-          const result = await this.$http.delete(`/rest/admin_users/${row._id}`);
+          const result = await deleteUser({ id: row._id });
           if (result.data) {
             this.$message({
               message: `删除成功！`,
-              type: "success"
+              type: "success",
             });
             this.initData();
           }
@@ -54,11 +54,11 @@ export default {
         .catch(() => {
           this.$message({
             type: "info",
-            message: "已取消删除"
+            message: "已取消删除",
           });
         });
-    }
-  }
+    },
+  },
 };
 </script>
 

@@ -29,7 +29,7 @@ const routes = [
       {
         path: 'home',
         name: 'home',
-        component: () => import('@/views/404'),
+        component: () => import('@/views/Home'),
         meta: { title: '首页' }
       }
     ]

@@ -36,7 +36,6 @@ export default {
     };
   },
   methods: {
-
     resetForm(){
       this.$refs.ruleForm.resetFields()
     },
@@ -59,7 +58,7 @@ export default {
         return
       }
       localStorage.setItem('token',res.token)
-      this.$router.push('/home')
+      this.$router.push({name:'/home',params:{username:res.username}})
     },
   },
 };

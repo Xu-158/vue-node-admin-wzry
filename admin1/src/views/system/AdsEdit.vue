@@ -88,14 +88,11 @@ export default {
         res = await saveAds(this.model);
         message = "添加";
       }
-      if (res.data) {
-        this.$message({
-          message: `${message}成功！`,
-          type: "success",
-        });
+      if (res.statusCode === 0) {
+        this.$message.success(`${res.msg}`);
         this.$router.push("/system/adsList");
       } else {
-        this.$message.error(`${message}错误!`);
+        this.$message.error(`${res.msg}错误!`);
       }
     },
 
