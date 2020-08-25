@@ -60,7 +60,7 @@ export default {
       localStorage.setItem('token',res.token)
       localStorage.setItem('username',res.data.username)
 
-      this.$router.push({path:'/home',query:{username}})
+      this.$router.push('/home')
     },
   },
 };

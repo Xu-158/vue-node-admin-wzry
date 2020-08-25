@@ -1,4 +1,4 @@
-import httpUtil from '@/utils/request'
+import httpUtil from '@/utils/httpUtil'
 
 // 登陆
 export function login(data){

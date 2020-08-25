@@ -63,6 +63,9 @@ router.put('/user/update', handle.auth, handle.userEditHandle)
 router.get('/user/list', handle.auth, handle.userListHandle)
 router.get('/user/item', handle.auth, handle.userInfoHandle)
 
+// 数据可视化
+router.get('/echarts', handle.auth, handle.echartsHandle)
+
 module.exports = router
 
 

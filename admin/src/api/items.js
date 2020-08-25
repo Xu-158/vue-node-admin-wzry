@@ -1,4 +1,4 @@
-import httpUtil from '@/utils/request'
+import httpUtil from '@/utils/httpUtil'
 // 添加装备
 export function saveItem (data) {
   return httpUtil({

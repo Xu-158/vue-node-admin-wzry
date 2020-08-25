@@ -202,10 +202,6 @@ router.beforeEach(async (to, from, next) => {
   document.title = to.meta.title ? to.meta.title : 'admin'
 
   // 验证token
-  // const token = await 
-  // if (!to.meta.isPublic && !sessionStorage.token) {
-  //   return next('/login')
-  // }
   const token = await existToken()
 
   if (token) {

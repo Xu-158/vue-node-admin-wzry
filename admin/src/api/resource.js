@@ -1,4 +1,4 @@
-import httpUtil from '@/utils/request'
+import httpUtil from '@/utils/httpUtil'
 
 // 新建文章
 export function saveArticle (data) {

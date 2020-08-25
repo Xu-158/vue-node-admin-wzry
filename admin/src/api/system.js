@@ -1,4 +1,4 @@
-import httpUtil from '@/utils/request'
+import httpUtil from '@/utils/httpUtil'
 
 // 添加分类
 export function saveCate(data) {

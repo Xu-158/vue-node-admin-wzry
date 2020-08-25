@@ -14,7 +14,7 @@ const response = require('../../utils/response')
 module.exports = {
   // 验证token的中间件函数
   async auth(req, res, next) {
-    const token = String(req.headers.authorization)
+    const token = String(req.headers.authorization).split(' ').pop()//去掉 Bearer 
     // 解析token
     jwt.verify(token, req.app.get('secret'), async (err, token) => {
       if (err) {
@@ -104,7 +104,6 @@ module.exports = {
         name: name,
         parent: undefined,
       }
-      console.log(name);
       data = await CategoryModel.findByIdAndUpdate(req.body.id, model)
       msg = '修改分类成功'
     }
@@ -298,8 +297,6 @@ module.exports = {
     let data, msg
     if (id) {
       // 修改广告位
-      console.log(name);
-      console.log(items);
       data = await AdModel.findByIdAndUpdate(id, { name, items })
       msg = '更新广告位成功'
     } else {
@@ -333,7 +330,6 @@ module.exports = {
       return
     }
     const da = await AdModel.findById(id)
-    console.log(da);
     response(res, 0, '获取广告位详情成功', item)
   },
 
@@ -412,7 +408,6 @@ module.exports = {
   async articleCateHandle(req, res) {
     // 找出文章下的子分类
     const articleCate = await CategoryModel.find({ name: "新闻分类" })
-    console.log(articleCate);
     const articleCateList = await CategoryModel.find({ parent: articleCate[0]._id })
     response(res, 0, '获取英雄二级分类成功', articleCateList)
   },
@@ -472,5 +467,17 @@ module.exports = {
     }
     response(res, 0, '获取管理员详情成功', item)
   },
+
+  // echarts数据可视化
+  async echartsHandle(req, res) {
+    const equipTotal = await ItemModel.find().countDocuments()
+    const articleTotal = await ArticleModel.find().countDocuments()
+    const heroTotal = await HeroModel.find().countDocuments()
+    const adTotal = await AdModel.find().countDocuments()
+    const userTotal = await AdminUserModel.find().countDocuments()
+    response(res, 0, '获取数据总数成功', [
+      equipTotal, articleTotal, heroTotal, adTotal, userTotal
+    ])
+  }
 }
 

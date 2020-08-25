@@ -8,7 +8,7 @@ const httpUtil = axios.create({
 })
 
 httpUtil.interceptors.request.use(config => {
-  config.headers['Authorization'] = localStorage.getItem('token') || ''
+  config.headers.Authorization = 'Bearer ' + localStorage.getItem('token') || ''
   return config
 }, err => {
   return Promise.reject(err)
@@ -16,16 +16,16 @@ httpUtil.interceptors.request.use(config => {
 )
 
 httpUtil.interceptors.response.use(
-  response =>{
+  response => {
     const res = response.data
-    if(response.config.url !== '/auth' && res.status == 10){
+    if (response.config.url !== '/auth' && res.status == 10) {
       Message.error(res.msg)
       router.push('/login')
       return Promise.reject(res)
     }
     return res
   },
-  err=>{
+  err => {
     Message.err(err.response.data)
     return Promise.reject(err)
   }

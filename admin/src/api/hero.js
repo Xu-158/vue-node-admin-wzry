@@ -1,4 +1,4 @@
-import httpUtil from '@/utils/request'
+import httpUtil from '@/utils/httpUtil'
 
 // 添加英雄
 export function saveHero (data) {

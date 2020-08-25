@@ -32,7 +32,7 @@ export default {
     return {
       tableData: [],
       page: 1,
-      pageSize: 5,
+      pageSize: 8,
       articleTotal: 1, // 总数量
     };
   },
