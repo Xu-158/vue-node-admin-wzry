@@ -58,7 +58,9 @@ export default {
         return
       }
       localStorage.setItem('token',res.token)
-      this.$router.push({name:'/home',params:{username:res.username}})
+      localStorage.setItem('username',res.data.username)
+
+      this.$router.push({path:'/home',query:{username}})
     },
   },
 };

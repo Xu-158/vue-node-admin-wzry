@@ -11,13 +11,23 @@
             <el-menu-item index="/items/itemAdd">新建装备</el-menu-item>
             <el-menu-item index="/items/itemList">装备列表</el-menu-item>
           </el-menu-item-group>
+        </el-submenu>
 
+        <el-submenu index="2">
+          <template slot="title">
+            <i class="el-icon-message"></i>英雄管理
+          </template>
           <el-menu-item-group>
             <template slot="title">英雄</template>
             <el-menu-item index="/hero/heroAdd">新建英雄</el-menu-item>
             <el-menu-item index="/hero/heroList">英雄列表</el-menu-item>
           </el-menu-item-group>
+        </el-submenu>
 
+        <el-submenu index="3">
+          <template slot="title">
+            <i class="el-icon-message"></i>文章管理
+          </template>
           <el-menu-item-group>
             <template slot="title">文章</template>
             <el-menu-item index="/resource/articleAdd">新建文章</el-menu-item>
@@ -25,20 +35,32 @@
           </el-menu-item-group>
         </el-submenu>
 
-        <el-submenu index="2">
+        <el-submenu index="4">
           <template slot="title">
-            <i class="el-icon-message"></i>系统设置
+            <i class="el-icon-message"></i>运营管理
+          </template>
+          <el-menu-item-group>
+            <template slot="title">广告位</template>
+            <el-menu-item index="/system/adsAdd">新建广告位</el-menu-item>
+            <el-menu-item index="/system/adsList">广告位列表</el-menu-item>
+          </el-menu-item-group>
+        </el-submenu>
+
+        <el-submenu index="5">
+          <template slot="title">
+            <i class="el-icon-message"></i>分类管理
           </template>
           <el-menu-item-group>
             <template slot="title">分类</template>
             <el-menu-item index="/system/cateAdd">新建分类</el-menu-item>
             <el-menu-item index="/system/cateList">分类列表</el-menu-item>
           </el-menu-item-group>
-          <el-menu-item-group>
-            <template slot="title">广告位</template>
-            <el-menu-item index="/system/adsAdd">新建广告位</el-menu-item>
-            <el-menu-item index="/system/adsList">广告位列表</el-menu-item>
-          </el-menu-item-group>
+        </el-submenu>
+
+        <el-submenu index="6">
+          <template slot="title">
+            <i class="el-icon-message"></i>系统设置
+          </template>
           <el-menu-item-group>
             <template slot="title">管理员</template>
             <el-menu-item index="/system/userAdd">新建管理员</el-menu-item>
@@ -50,6 +72,7 @@
 
     <el-container>
       <el-header style="text-align: right; font-size: 12px">
+        <span style="margin-right: 15px">{{username}}</span>
         <el-dropdown @command="handleCommand">
           <i class="el-icon-setting" style="margin-right: 15px"></i>
           <el-dropdown-menu slot="dropdown">
@@ -57,7 +80,6 @@
             <el-dropdown-item :divided="true" command="logout">退出</el-dropdown-item>
           </el-dropdown-menu>
         </el-dropdown>
-        <span>{{username}}</span>
       </el-header>
 
       <el-main>
@@ -71,8 +93,8 @@
 export default {
   data() {
     return {
-      list: ["2"],
-      username: "xu ",
+      list: ["0"],
+      username: "",
     };
   },
   beforeMount() {
@@ -82,10 +104,10 @@ export default {
   methods: {
     handleCommand(command) {
       switch (command) {
-        case 'homepage':
+        case "homepage":
           this.$router.push("/home");
           break;
-        case 'logout':
+        case "logout":
           localStorage.removeItem("token");
           this.$router.push("/login");
           break;

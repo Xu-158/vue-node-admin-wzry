@@ -1,5 +1,5 @@
 <template>
-  <div>===={{username}}====</div>
+  <div>欢迎管理员：{{username}}</div>
 </template>
 
 <script>
@@ -10,12 +10,7 @@ export default {
     };
   },
   mounted() {
-    getParams()
-  },
-  methods:{
-    getParams() {
-      this.username = $route.params.username
-    },
+    this.username = this.$route.query.username
   },
 };
 </script>

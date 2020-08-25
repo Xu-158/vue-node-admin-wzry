@@ -23,8 +23,8 @@ const routes = [
 
   {
     path: '/',
-    redirect: '/home',
     component: () => import('@/views/Layout'),
+    redirect: '/home',
     children: [
       {
         path: 'home',
