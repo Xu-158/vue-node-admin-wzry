@@ -5,6 +5,13 @@ import Main from '../views/Main.vue'
 Vue.use(VueRouter)
 
 const routes = [
+
+  {
+    path: "*",
+    name: "404",
+    component: () => import('@/views/404')
+  },
+
   {
     path: '/',
     component: Main,
@@ -31,7 +38,21 @@ const routes = [
 ]
 
 const router = new VueRouter({
-  routes
+  routes,
+  // 路由改变滚动到顶部，而返回上一级时滚动到之前的位置
+  scrollBehavior(to, from, savedPosition) {
+    if (savedPosition) {
+      return savedPosition
+    } else {
+      return { x: 0, y: 0 }
+    }
+  }
 })
+
+// 防止相同路由跳转报错
+const originalPush = VueRouter.prototype.push
+VueRouter.prototype.push = function push(location) {
+  return originalPush.call(this, location).catch(err => err)
+}
 
 export default router

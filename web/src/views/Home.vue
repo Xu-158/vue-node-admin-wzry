@@ -2,8 +2,8 @@
   <div>
     <div v-swiper:mySwiper="swiperOption">
       <div class="swiper-wrapper">
-        <div class="swiper-slide" :key="banner" v-for="banner in banners">
-          <img class="w-100" :src="banner" />
+        <div class="swiper-slide" :key="index" v-for="(banner,index) in banners">
+          <img class="w-100" :src="banner.image" />
         </div>
       </div>
       <div class="swiper-pagination pagination-home text-right px-3 py-1"></div>
@@ -67,6 +67,7 @@
 </template>
 
 <script>
+import { getHomeAds, getNews, getHeroes, getHeroCate } from "../api/index";
 export default {
   name: "carrousel",
   components: {},
@@ -74,40 +75,51 @@ export default {
     return {
       swiperOption: {
         pagination: {
-          el: ".pagination-home"
+          el: ".pagination-home",
         },
         loop: true,
         autoplay: true, //可设置数值来指定播放速度
-        speed: 400 // 切换图片速度
+        speed: 400, // 切换图片速度
       },
-      banners: [
-        "http://ossweb-img.qq.com/upload/adw/image/20200814/b2a7065b6bc93bea491bcc73b3f1a2e2.jpeg",
-        "http://ossweb-img.qq.com/upload/adw/image/20200812/435cedc1f712e00802619029951a5d91.jpeg"
-      ],
+      banners: [],
       newsCats: [],
-      heroesCats: []
+      heroesCats: [],
     };
   },
   methods: {
     async getNewsCats() {
-      const res = await this.$http.get("/news/list");
+      const res = await getNews();
       this.newsCats = res.data;
     },
     async getHeroesCats() {
-      const res = await this.$http.get("/heroes/list");
+      const res = await getHeroCate();
       this.heroesCats = res.data;
-    }
+    },
+    async getBanner() {
+      const res = await getHomeAds();
+      res.data.map((item) => {
+        this.banners.push({
+          image: item.image,
+          url: item.url,
+        });
+      });
+    },
+    async getHero() {
+      const res = await getHeroes();
+      this.newsCats = res.data;
+    },
   },
   created() {
-    this.getNewsCats();
+    // this.getNewsCats();
     this.getHeroesCats();
+    this.getBanner();
   },
   filters: {
     date(val) {
       const list = val.split("-");
       return list[1] + "/" + list[2].toString().slice(0, 2);
-    }
-  }
+    },
+  },
 };
 </script>
 

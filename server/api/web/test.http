@@ -1,7 +1,7 @@
 @uri = http://127.0.0.1:3000/web
 @jsonType = Content-Type: application/json
 
-### 首页广告数据成功
+### 首页广告数据
 GET {{uri}}/ads/home
 
 ### 首页新闻数据
