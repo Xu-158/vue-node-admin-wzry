@@ -11,6 +11,8 @@
             :value="item._id"
           ></el-option>
         </el-select>
+        <span style="margin-left:30px">设置为热门：</span>
+        <el-switch v-model="model.hot" active-color="#13ce66" inactive-color="#666"></el-switch>
       </el-form-item>
       <el-form-item label="标题">
         <el-input v-model="model.title"></el-input>
@@ -43,6 +45,7 @@ export default {
     return {
       model: {
         categories: [],
+        hot: false,
       },
       categories: [],
     };

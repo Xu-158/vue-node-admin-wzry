@@ -1,0 +1,14 @@
+@uri = http://127.0.0.1:3000/web
+@jsonType = Content-Type: application/json
+
+### 首页广告数据成功
+GET {{uri}}/ads/home
+
+### 首页新闻数据
+GET {{uri}}/news/listOne
+
+### 首页英雄数据
+GET {{uri}}/hero/listOne
+
+###英雄列表分类
+GET {{uri}}/hero/cate

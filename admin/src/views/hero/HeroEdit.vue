@@ -20,6 +20,9 @@
               <i v-else class="el-icon-plus avatar-uploader-icon"></i>
             </el-upload>
           </el-form-item>
+          <el-form-item label="设置热门">
+            <el-switch v-model="model.hot" active-color="#13ce66" inactive-color="#666"></el-switch>
+          </el-form-item>
 
           <el-form-item label="banner">
             <el-upload
@@ -206,6 +209,7 @@ export default {
           attack: 0,
           survive: 0,
         },
+        hot: false,
       },
       categories: [],
       items: [],
@@ -251,7 +255,7 @@ export default {
     },
 
     async initHeroes() {
-      const res = await getHero();
+      const res = await getHero({ page: 1, pageSize: 999 });
       this.heroes = res.data.heroList;
     },
 

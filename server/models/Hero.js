@@ -28,6 +28,10 @@ const schema = new mongoose.Schema({
     hero: { type: mongoose.SchemaTypes.ObjectId, ref: 'Hero' },
     description: { type: String }
   }],
+  hot: {
+    type: Boolean,
+    default: false
+  },
 })
 
 module.exports = mongoose.model('Hero', schema, 'heroes')
