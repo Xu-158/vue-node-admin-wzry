@@ -12,11 +12,8 @@
       <el-table-column prop="name" label="分类名称"></el-table-column>
       <el-table-column label="查看">
         <template slot-scope="scope">
-          <el-button
-            size="mini"
-            :disabled="scope.row.level==='二级'"
-            @click="initTwo(scope.row._id)"
-          >查看下级</el-button>
+          <el-button size="mini" @click="initTwo(scope.row._id)" v-if="scope.row.level!=='二级'">查看下级</el-button>
+          <el-button v-else type="danger" @click="initData" size="mini">返回上级</el-button>
         </template>
       </el-table-column>
       <el-table-column fixed="right" label="操作" width="200">
@@ -43,7 +40,7 @@ export default {
   },
   computed: {
     showBackBtn() {
-      return this.tableData.every((item) => item.level === "二级");
+      return this.tableData.length === 0;
     },
   },
   methods: {
@@ -69,12 +66,9 @@ export default {
         type: "warning",
       })
         .then(async () => {
-          const result = await deleteCate({ id: row._id });
-          if (result.data) {
-            this.$message({
-              message: `删除成功！`,
-              type: "success",
-            });
+          const res = await deleteCate({ id: row._id });
+          if (res.statusCode === 0) {
+            this.$message.success(`${res.msg}`);
             this.initData();
           }
         })

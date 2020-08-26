@@ -44,14 +44,15 @@ export default {
   methods: {
     async save() {
       let res, message;
-      const { model, id } = this;
+      const { name, parent } = this.model;
+      const id = this.id;
       if (this.id) {
         // 更新
-        res = await updateCate({ id, model });
+        res = await updateCate({ name, parent, id });
         message = "修改";
       } else {
         // 新增
-        res = await saveCate(model);
+        res = await saveCate({ name, parent });
         message = "添加";
       }
       if (res.statusCode === 0) {

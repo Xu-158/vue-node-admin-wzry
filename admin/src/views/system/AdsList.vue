@@ -42,12 +42,9 @@ export default {
         type: "warning",
       })
         .then(async () => {
-          const result = await deleteAds({id:row._id})
-          if (result.data) {
-            this.$message({
-              message: `删除成功！`,
-              type: "success",
-            });
+          const res = await deleteAds({id:row._id})
+          if (res.statusCode === 0) {
+            this.$message.success(`${res.msg}`);
             this.initData();
           }
         })

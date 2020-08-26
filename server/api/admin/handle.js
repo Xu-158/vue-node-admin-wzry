@@ -68,7 +68,7 @@ module.exports = {
    */
   // 创建或修改分类
   async cateEditHandle(req, res) {
-    const { name, parent } = req.body.model
+    const { name, parent, id } = req.body
     let model = {} //创建或修改对应模型的对象
     let isExist = false //判断分类是否存在
 
@@ -102,7 +102,7 @@ module.exports = {
     } else {
       model = {
         name: name,
-        parent: undefined,
+        parent: parent,
       }
       data = await CategoryModel.findByIdAndUpdate(req.body.id, model)
       msg = '修改分类成功'
@@ -116,7 +116,7 @@ module.exports = {
     let model = await CategoryModel.findById(id)
     // 若是二级分类直接删除, 一级分类则删除自身和所有二级分类
     if (model.parent) {
-      await CategoryModel.deleteOne(id)
+      await CategoryModel.findByIdAndDelete(id)
     } else {
       await CategoryModel.deleteMany({
         // $or操作符操作在一个数据或者多个表达式并且 需要选择至少一个满足条件的表达式，

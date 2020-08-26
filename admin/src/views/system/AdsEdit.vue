@@ -78,6 +78,10 @@ export default {
     async save() {
       let res, message;
       const { name, items } = this.model;
+      if (!name) {
+        this.$message.error("广告位名称不能为空");
+        return;
+      }
       const id = this.id;
       if (this.id) {
         // 更新
@@ -97,15 +101,12 @@ export default {
     },
 
     toDelete(index) {
-      this.$confirm(`此操作将永久删除, 是否继续?`, "提示", {
+      this.$confirm(`此操作将永久删除该广告项, 是否继续?`, "提示", {
         confirmButtonText: "确定",
         cancelButtonText: "取消",
         type: "warning",
       }).then(async () => {
-        this.$message({
-          message: `删除成功！`,
-          type: "success",
-        });
+        this.$message.success(`删除成功！`)
         this.model.items.splice(index, 1);
       });
     },
