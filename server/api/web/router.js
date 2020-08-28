@@ -13,12 +13,14 @@ router.use(express.static('public'))
 router.get('/ads/home', handle.homeAdsHandle)
 // 首页新闻数据
 router.get('/news/listOne', handle.newsListOneHandle)
+// 首页新闻详情
+router.get('/article/item', handle.newsItemHandle)
 // // 新闻列表
 // router.get('/news/listTwo', handle.newsListTwoHandle)
 // 首页英雄数据
 router.get('/hero/listOne', handle.heroListOneHandle)
-// // 英雄详情
-// router.get('/hero/item', handle.heroItemHandle)
+// 英雄详情
+router.get('/hero/item', handle.heroItemHandle)
 // 英雄列表分类
 router.get('/hero/cate', handle.heroCateHandle)
 // // 英雄列表

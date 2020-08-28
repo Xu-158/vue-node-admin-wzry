@@ -124,6 +124,7 @@
 
 <script>
 import Card from "@/components/Card";
+import {getHeroInfo} from '@/api/index'
 export default {
   props: {
     id: { type: String }
@@ -139,7 +140,7 @@ export default {
   },
   methods: {
     async getHeroInfo() {
-      const res = await this.$http.get(`/heroes/${this.id}`);
+      const res = await getHeroInfo({id:this.id})
       this.model = res.data;
     }
   },

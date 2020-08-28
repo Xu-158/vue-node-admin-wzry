@@ -1,7 +1,7 @@
 <template>
   <div class="article-page" v-if="model">
     <div class="d-flex px-2 py-3 fs-xl title text-info ai-center">
-      <strong class="mr-2 fs-xl" @click='back'>&lt;</strong>
+      <strong class="mr-2 fs-xl" @click="back">&lt;</strong>
       <strong class="flex-1 text-ellipsis">{{model.title}}</strong>
       <div class="text-grey fs-xxs">{{model.createdAt | date}}</div>
     </div>
@@ -11,7 +11,7 @@
         <span class="ml-2 text-info fs-lg">相关资讯</span>
       </div>
       <div class="mt-2">
-        <router-link
+        <!-- <router-link
           tag="div"
           :to="`/articles/${item._id}`"
           v-for="item in model.related"
@@ -19,36 +19,37 @@
           class="w-100 fs-lg text-ellipsis py-1"
         >
           <strong>{{item.title}}</strong>
-        </router-link>
+        </router-link> -->
       </div>
     </div>
   </div>
 </template>
 
 <script>
+import { getArticleInfo } from "@/api/index";
 export default {
   data() {
     return {
-      model: {}
+      model: {},
     };
   },
   props: {
-    id: { type: String }
+    id: { type: String },
   },
   created() {
-    this.getAtricleInfo();
+    this.getAtricle()
   },
   methods: {
-    async getAtricleInfo() {
-      const res = await this.$http.get(`/articles/${this.id}`);
+    async getAtricle() {
+      const res = await getArticleInfo({id:this.id})
       this.model = res.data;
     },
-    back(){
-      console.log('back');
-      this.$router.go(-1)
-    }
+    back() {
+      console.log("back");
+      this.$router.go(-1);
+    },
   },
-  watch:{
+  watch: {
     // router-link点击不会跳转解决
     //（1） id:'getAtricleInfo' 简写
     // id(){
@@ -56,11 +57,11 @@ export default {
     // }
     // (2) 在Main.vue <router-view :key="$route.path"></router-view>
   },
-  filters:{
-    date(val){
-      return String(val).slice(0,10)
-    }
-  }
+  filters: {
+    date(val) {
+      return String(val).slice(0, 10);
+    },
+  },
 };
 </script>
 

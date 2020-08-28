@@ -17,6 +17,13 @@ module.exports = {
     response(res, 0, '获取首页广告数据成功', homeAds.items)
   },
 
+  // 首页新闻详情
+  async newsItemHandle(req, res) {
+    const news = await ArticleModel.findById(req.query.id)
+    console.log(req.params);
+    response(res, 0, '获取新闻详细成功', news)
+  },
+
   // 首页新闻数据
   async newsListOneHandle(req, res) {
     // 查询新闻二级分类，以及属于该分类下的所有文章, 每个二级分类取前5篇文章
@@ -82,6 +89,12 @@ module.exports = {
   async heroCateHandle(req, res) {
     const data = await CategoryModel.find({ parent: mongoose.Types.ObjectId('5f3be900633d9d2d18ac6cd2') })
     response(res, 0, '获取首页英雄列表分类', data)
+  },
+
+  // 获得英雄详细
+  async heroItemHandle(req, res) {
+    const hero = await HeroModel.findById(req.query.id).populate('categories items1 items2 partners.hero').lean()
+    response(res, 0, '获取英雄详细成功', hero)
   }
 
 }
