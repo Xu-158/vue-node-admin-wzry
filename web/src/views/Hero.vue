@@ -108,8 +108,10 @@
             <card plain iconClass="cc-menu-circle" title="英雄关系">
               <div class="fs-lg py-2">最佳搭档</div>
               <div v-for="item in model.partners" :key="item._id" class="d-flex my-2">
-                <img class="mb-2" :src="item.hero.avatar" height="50px" alt />
-                <div class style="height:50px">{{item.description}}</div>
+                <div class="partners">
+                  <img class="mb-2 img" :src="item.hero.avatar" alt />
+                </div>
+                <div class style>{{item.description}}</div>
               </div>
               <div style="border:0.5px solid #eee" class="mt-3"></div>
             </card>
@@ -124,15 +126,17 @@
 
 <script>
 import Card from "@/components/Card";
-import {getHeroInfo} from '@/api/index'
+import { getHeroInfo } from "@/api/index";
 export default {
   props: {
-    id: { type: String }
+    id: { type: String },
   },
   data() {
     return {
-      model: {},
-      currentSkillsIndex: 0
+      model: {
+        categories: [],
+      },
+      currentSkillsIndex: 0,
     };
   },
   created() {
@@ -140,18 +144,18 @@ export default {
   },
   methods: {
     async getHeroInfo() {
-      const res = await getHeroInfo({id:this.id})
+      const res = await getHeroInfo({ id: this.id });
       this.model = res.data;
-    }
+    },
   },
   computed: {
     currentSkill() {
-      return this.model.skills[this.currentSkillsIndex];
-    }
+      return this.model.skills && this.model.skills[this.currentSkillsIndex];
+    },
   },
   components: {
-    Card
-  }
+    Card,
+  },
 };
 </script>
 
@@ -164,7 +168,7 @@ export default {
     z-index: 999;
   }
   .header {
-    height: 30vh;
+    height: 50vw;
     background: #fff no-repeat top center;
     background-size: 100% 100%;
   }
@@ -190,8 +194,8 @@ export default {
   }
   .skills {
     .skills-icon {
-      width: 60px;
-      height: 60px;
+      width: 5rem;
+      height: 5rem;
       border: 3px solid map-get($colors, "white");
       border-radius: 50%;
       &.skillActive {
@@ -200,9 +204,16 @@ export default {
     }
   }
   .item-icon {
-    width: 50px;
-    height: 50px;
+    width: 4rem;
+    height: 4rem;
     border-radius: 50%;
+  }
+
+  .partners{
+    .img{
+      height: 4rem;
+      width: 4rem;
+    }
   }
 }
 </style>

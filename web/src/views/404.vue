@@ -24,7 +24,7 @@ export default {
   }
 
   .radius-small {
-    height: 50px;
+    height: 5rem;
     background-color: map-get($colors, "primary");
     font-size: 1.2rem;
     font-weight: 600;

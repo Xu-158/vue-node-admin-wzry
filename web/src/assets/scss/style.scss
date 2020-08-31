@@ -5,7 +5,8 @@
   outline: none;
 }
 html {
-  font-size: 13px;
+  // font-size: 13px;
+  font-size: calc(100vw / 30);
 }
 body {
   margin: 0;
@@ -113,8 +114,8 @@ a {
     display: flex;
     align-items: center;
     justify-content: center;
-    i{
-      color:map-get($colors,'primary');
+    i {
+      color: map-get($colors, "primary");
       font-size: 1.5rem;
       margin-right: 5px;
     }

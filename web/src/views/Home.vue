@@ -36,7 +36,7 @@
           :key="index"
         >
           <span
-            class="text-info fs-sm"
+            class="text-info fs-xs"
             :class="calcNewsClass(news.categoryName)"
           >{{news.categoryName}}</span>
           <span class="px-1">|</span>
@@ -215,7 +215,6 @@ export default {
     border: 1px solid;
     border-radius: 5px;
     padding: 1px 2px;
-    font-size: 10px;
     &.news-cate-one {
       border-color: rgba(0, 0, 255, 0.678);
       color: rgba(0, 0, 255, 0.678);
